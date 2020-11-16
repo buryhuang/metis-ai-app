@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-appmetisai-dev-201310-authRole",
+      "UnauthRoleArn": "arn:aws:iam::048156509593:role/amplify-appmetisai-dev-201310-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::048156509593:role/amplify-appmetisai-dev-201310-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-appmetisai-dev-201310-deployment",
+      "UnauthRoleName": "amplify-appmetisai-dev-201310-unauthRole",
+      "StackName": "amplify-appmetisai-dev-201310",
+      "StackId": "arn:aws:cloudformation:us-east-1:048156509593:stack/amplify-appmetisai-dev-201310/0be3cfb0-27c2-11eb-870b-12f057d255e7",
+      "AmplifyAppId": "dt3bixzrgu927"
+    }
+  }
+}
