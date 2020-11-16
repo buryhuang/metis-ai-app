@@ -17,9 +17,9 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="#home">Dashboard</Nav.Link>
-              <Nav.Link href="#link">Data Sources</Nav.Link>
-              <Nav.Link href="#link">Data Analyst</Nav.Link>
-              <Nav.Link href="#link">Data Scientist</Nav.Link>
+              <Nav.Link href="#sources">Data Sources</Nav.Link>
+              <Nav.Link href="#analyst">Data Analyst</Nav.Link>
+              <Nav.Link href="#scientist">Data Scientist</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
