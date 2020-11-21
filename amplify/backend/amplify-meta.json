@@ -1,0 +1,41 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-appmetisai-dev-201310-authRole",
+      "UnauthRoleArn": "arn:aws:iam::048156509593:role/amplify-appmetisai-dev-201310-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::048156509593:role/amplify-appmetisai-dev-201310-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-appmetisai-dev-201310-deployment",
+      "UnauthRoleName": "amplify-appmetisai-dev-201310-unauthRole",
+      "StackName": "amplify-appmetisai-dev-201310",
+      "StackId": "arn:aws:cloudformation:us-east-1:048156509593:stack/amplify-appmetisai-dev-201310/0be3cfb0-27c2-11eb-870b-12f057d255e7",
+      "AmplifyAppId": "dt3bixzrgu927"
+    }
+  },
+  "api": {
+    "appmetisai": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 365,
+              "description": "metisapp"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "ti4nzygg3rbxnio26zf6i2jhja",
+        "GraphQLAPIEndpointOutput": "https://3igkxgzr2vgctn23pa62nm5ewe.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-uvj3ca4alnbqxm5ef3ymqyliga"
+      },
+      "lastPushTimeStamp": "2020-11-21T20:25:27.122Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-appmetisai-dev-201310-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiappmetisai"
+      }
+    }
+  }
+}
