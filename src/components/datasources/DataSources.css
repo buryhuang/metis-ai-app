@@ -25,12 +25,13 @@
   width: 100px;
   height: 100px;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 4px;
   border-style: solid;
   border-width: 1px;
   border-color: #BAB7B7;
   color: #575859;
   font-size: 12px;
+  margin-left: 2em;
 }
 
 .datasources-img {

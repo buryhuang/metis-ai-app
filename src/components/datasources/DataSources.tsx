@@ -62,9 +62,6 @@ class DataSources extends React.Component<
             <div className="main-area">
                 <div className="main-area-contents">
                     <Grid container spacing={3}>
-                        &nbsp;
-                    </Grid>
-                    <Grid container spacing={3}>
                         <Grid item xs>
                         </Grid>
                         <Grid item xs={6}>
@@ -79,23 +76,28 @@ class DataSources extends React.Component<
                         <Grid item xs={10}>
                             <Grid container spacing={1}>
                                 <Grid item xs>
-                                    <a>Popular</a>
+                                    <a className="theme-content-menu-item active">Popular</a>
                                 </Grid>
                                 <Grid item xs>
-                                    <a>Analytics</a>
+                                    <a className="theme-content-menu-item">Analytics</a>
                                 </Grid>
                                 <Grid item xs>
-                                    <a>Social Media</a>
+                                    <a className="theme-content-menu-item">Social Media</a>
                                 </Grid>
                                 <Grid item xs>
-                                    <a>Marketing</a>
+                                    <a className="theme-content-menu-item">Marketing</a>
                                 </Grid>
                                 <Grid item xs>
-                                    <a>Database</a>
+                                    <a className="theme-content-menu-item">Database</a>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <hr className="theme-content-menu-divider"/>
                         </Grid>
                     </Grid>
 

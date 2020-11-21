@@ -2,6 +2,7 @@
   text-align: center;
   height: 100%;
   font-size: 13px;
+  font-family: Inter;
 }
 
 .App-logo {
@@ -30,6 +31,23 @@
   color: #61dafb;
 }
 
+.App-brand-header {
+  width: 200px;
+}
+
+.App-brand-header-brand {
+  font-size: 16px;
+  font-weight: bold;
+  color: #F2911B !important;
+}
+
+.App-brand-header-subtitle {
+  font-size: 9px;
+  color: #BAB7B7;
+  text-align: right;
+  margin-right: 1.5rem;
+}
+
 .main-area {
   background-color: #F3F5F9;
   height: 100%;
@@ -41,12 +59,32 @@
   height: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 3rem;
   max-width: 800px;
 }
 
 .theme-nav-menu-item {
   font-size: 13px;
+  font-weight: bold;
+  color: #BAB7B7;
 }
+
+.theme-nav-menu-item {
+  font-size: 13px;
+  font-weight: bold;
+  color: #BAB7B7;
+}
+
+.theme-content-menu-item {
+  font-size: 13px;
+  font-weight: bold;
+  color: darkgray !important;
+}
+
+.theme-content-menu-divider {
+  border: 1px solid #CFCDCD;
+}
+
 
 .theme-modal-dialog {
   text-align: center;
@@ -57,12 +95,12 @@
 .theme-input {
   border: 0px;
   background-color: white;
-  border-radius: 5px;
-  min-width: 200px;
+  border-radius: 4px;
+  min-width: 340px;
   border-color: #BAB7B7;
   border-style: solid;
-  border-width: 1px;
-  max-height: 30px;
+  border-width: 0px;
+  min-height: 30px;
   font-size: 13px;
 }
 
@@ -77,6 +115,8 @@
 .theme-button-icon {
   width: 40px;
   height: auto;
+  color: #DCE0E2;
+  margin-left: 0.5rem;
 }
 
 a:link, a:visited {
@@ -90,7 +130,12 @@ a:link, a:visited {
 
 a:hover, a:active {
   /*background-color: red;*/
-  color: blue !important;
+  color: #282c34 !important;
+}
+
+.active {
+  /*background-color: red;*/
+  color: #282c34 !important;
 }
 
 @keyframes App-logo-spin {
