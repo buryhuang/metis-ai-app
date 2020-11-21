@@ -3,13 +3,16 @@ import React from 'react';
 import {Button, Form} from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 
+import { API, graphqlOperation } from "aws-amplify";
+import { createUser } from '../../../graphql/mutations';
+
 interface ProviderCsvProps {
     onSave: any;
 }
 
 interface ProviderState {
-    email: string;
-    code: string;
+    tableName: string;
+    dataUrl: string;
     errorMessage: string;
 }
 
@@ -22,10 +25,13 @@ class ProviderCsv extends React.Component<
     constructor(props: ProviderCsvProps) {
         super(props);
         this.state = {
-            email: '-',
-            code: '',
+            tableName: 'csv-link-table-1',
+            dataUrl: 'https://testcsvselect.s3.amazonaws.com/matching_results.csv',
             errorMessage: '',
         };
+        this.handleTableNameChange = this.handleTableNameChange.bind(this);
+        this.handleDataUrlChange = this.handleDataUrlChange.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     async componentDidMount() {
@@ -33,9 +39,26 @@ class ProviderCsv extends React.Component<
         // this.setState({ email: user.attributes.email });
     }
 
-    render() {
-        const { code, errorMessage } = this.state;
+    handleTableNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        console.log(event?.target?.value);
+        this.setState({ tableName: event?.target?.value });
+    }
 
+    handleDataUrlChange(event: React.ChangeEvent<HTMLInputElement>) {
+        console.log(event?.target?.value);
+        this.setState({ dataUrl: event?.target?.value });
+    }
+
+    handleSave() {
+        console.log(this.state);
+
+        const userData = { email: "david@johnsongroup.org", data: JSON.stringify(this.state) };
+
+        API.graphql(graphqlOperation(createUser, {input: userData}))
+        this.props.onSave();
+    }
+
+    render() {
         return (
             <div className="theme-modal-dialog">
                 <Grid container spacing={3}>
@@ -45,8 +68,10 @@ class ProviderCsv extends React.Component<
                     <Grid item xs>
                     </Grid>
                     <Grid item xs={8}>
-                        <input className="theme-input" placeholder="Table name"/>
-                        <input className="theme-input" placeholder="Link to the csv file"/>
+                        <p>Table Name:</p>
+                        <input className="theme-input-border" value={this.state.tableName} placeholder="Table name" onChange={this.handleTableNameChange}/>
+                        <p>Data Url:</p>
+                        <input className="theme-input-border" value={this.state.dataUrl} placeholder="Link to the csv file" onChange={this.handleDataUrlChange}/>
                     </Grid>
                     <Grid item xs>
                     </Grid>
@@ -57,7 +82,7 @@ class ProviderCsv extends React.Component<
                     <Grid item xs={8}>
                     </Grid>
                     <Grid item xs>
-                        <Button onClick={this.props.onSave}>Save</Button>
+                        <Button onClick={this.handleSave}>Save</Button>
                     </Grid>
                 </Grid>
             </div>

@@ -9,6 +9,10 @@ import {DataSources} from "./components/datasources/DataSources";
 import { Search, Person } from '@material-ui/icons';
 const history = createHistory();
 
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
 function App() {
   return (
     <div className="App">
