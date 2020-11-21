@@ -1,9 +1,15 @@
 import React from 'react';
 
 import './DataSources.css';
-import {Button, Form, Modal} from "react-bootstrap";
+import {Button, Form, Modal, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {ProviderCsv} from "./providers/ProviderCsv";
+import { Search } from '@material-ui/icons';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Navbar from "react-bootstrap/Navbar";
 
 interface DataSourcesProps {}
 
@@ -54,53 +60,75 @@ class DataSources extends React.Component<
 
         return (
             <div className="main-area">
-                <div className="row">
-                    <div className="col-sm">
+                <div className="main-area-contents">
+                    <Grid container spacing={3}>
+                        &nbsp;
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <input className="theme-input" placeholder="Search for a data source"/>&nbsp;<a><Search className="theme-button-icon" /></a>
+                        </Grid>
+                        <Grid item xs>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Grid container spacing={1}>
+                                <Grid item xs>
+                                    <a>Popular</a>
+                                </Grid>
+                                <Grid item xs>
+                                    <a>Analytics</a>
+                                </Grid>
+                                <Grid item xs>
+                                    <a>Social Media</a>
+                                </Grid>
+                                <Grid item xs>
+                                    <a>Marketing</a>
+                                </Grid>
+                                <Grid item xs>
+                                    <a>Database</a>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <div className="datasources-box">
+                                <p><img className="datasources-img" src="https://images.ctfassets.net/3n0fku9d0jjr/1caC38kuhK8WusWKQGIeAO/6a35483a56960b0ff258e5c6acb9c0d7/csv-autofetch.svg" /></p>
+                                {/*<a >Link Account</a>*/}
+                                <a onClick={() => this.setState({showModal: true})}>Link Account</a>
+                                {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
+                            </div>
+                        </Grid>
+                        <Grid item xs>
+                            <div className="datasources-box"></div>
+                        </Grid>
+                        <Grid item xs>
+                            <div className="datasources-box"></div>
+                        </Grid>
+                        <Grid item xs>
+                        </Grid>
+                        <Grid item xs>
+                        </Grid>
+                        <Grid item xs>
+                        </Grid>
+                    </Grid>
+                    <div className="row theme-row">
+                        <hr  style={{
+                            color: '#000000',
+                            backgroundColor: '#000000',
+                            height: .5,
+                            borderColor : '#000000'
+                        }}/>
                     </div>
-                    <div className="col-sm">
-                        <input className="theme-input" placeholder="Search for a data source"/><Button variant="outline-success"><i className="fas fa-search" /></Button>
-                    </div>
-                    <div className="col-sm">
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-sm"></div>
-                    <div className="col-sm"><a>Popular</a></div>
-                    <div className="col-sm"><a>Analytics</a></div>
-                    <div className="col-sm"><a>Social Media</a></div>
-                    <div className="col-sm"><a>Marketing</a></div>
-                    <div className="col-sm"><a>Database</a></div>
-                    <div className="col-sm"></div>
-                </div>
-                <div className="row">
-                    <hr  style={{
-                        color: '#000000',
-                        backgroundColor: '#000000',
-                        height: .5,
-                        borderColor : '#000000'
-                    }}/>
-                </div>
-                <div className="row">
-                    <div className="col-sm" />
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                            <p><img className="datasources-img" src="https://images.ctfassets.net/3n0fku9d0jjr/1caC38kuhK8WusWKQGIeAO/6a35483a56960b0ff258e5c6acb9c0d7/csv-autofetch.svg" /></p>
-                            {/*<a >Link Account</a>*/}
-                            <a onClick={() => this.setState({showModal: true})}>Link Account</a>
-                            {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv /> </Modal>}
-                        </div>
-                    </div>
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                        </div>
-                    </div>
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                        </div>
-                    </div>
-                    <div className="col-sm" />
-                    <div className="col-sm" />
-                    <div className="col-sm" />
                 </div>
             </div>
         );

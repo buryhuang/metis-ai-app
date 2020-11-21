@@ -1,10 +1,11 @@
 import React from 'react';
 
-// import './DataSources.css';
 import {Button, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
-interface ProviderCsvProps {}
+interface ProviderCsvProps {
+    onSave: any;
+}
 
 interface ProviderState {
     email: string;
@@ -32,71 +33,33 @@ class ProviderCsv extends React.Component<
         // this.setState({ email: user.attributes.email });
     }
 
-    // handleSuccess = (data) => {
-    //     this.setState({
-    //         code: data.code,
-    //         errorMessage: '',
-    //     });
-    // };
-    //
-    // handleFailure = (error) => {
-    //     this.setState({
-    //         code: '',
-    //         errorMessage: error.errorMessage,
-    //     });
-    // };
-
     render() {
         const { code, errorMessage } = this.state;
 
         return (
-            <div className="main-area">
-                <div className="row">
-                    <div className="col-sm">
-                    </div>
-                    <div className="col-sm">
-                        <input className="theme-input" placeholder="Search for a data source"/><Button variant="outline-success"><i className="fas fa-search" /></Button>
-                    </div>
-                    <div className="col-sm">
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-sm"></div>
-                    <div className="col-sm"><a>Popular</a></div>
-                    <div className="col-sm"><a>Analytics</a></div>
-                    <div className="col-sm"><a>Social Media</a></div>
-                    <div className="col-sm"><a>Marketing</a></div>
-                    <div className="col-sm"><a>Database</a></div>
-                    <div className="col-sm"></div>
-                </div>
-                <div className="row">
-                    <hr  style={{
-                        color: '#000000',
-                        backgroundColor: '#000000',
-                        height: .5,
-                        borderColor : '#000000'
-                    }}/>
-                </div>
-                <div className="row">
-                    <div className="col-sm" />
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                            <p><img className="datasources-img" src="https://images.ctfassets.net/3n0fku9d0jjr/1caC38kuhK8WusWKQGIeAO/6a35483a56960b0ff258e5c6acb9c0d7/csv-autofetch.svg" /></p>
-                            <Link to="#">Link Account</Link>
-                        </div>
-                    </div>
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                        </div>
-                    </div>
-                    <div className="col-sm">
-                        <div className="datasources-box">
-                        </div>
-                    </div>
-                    <div className="col-sm" />
-                    <div className="col-sm" />
-                    <div className="col-sm" />
-                </div>
+            <div className="theme-modal-dialog">
+                <Grid container spacing={3}>
+                    &nbsp;
+                </Grid>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <input className="theme-input" placeholder="Table name"/>
+                        <input className="theme-input" placeholder="Link to the csv file"/>
+                    </Grid>
+                    <Grid item xs>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                    </Grid>
+                    <Grid item xs={8}>
+                    </Grid>
+                    <Grid item xs>
+                        <Button onClick={this.props.onSave}>Save</Button>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
