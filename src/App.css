@@ -145,9 +145,13 @@ a:hover, a:active {
   color: #282c34 !important;
 }
 
-.active {
+.theme-menu-item-active {
   /*background-color: red;*/
   color: #282c34 !important;
+}
+
+.theme-menu-item-inactive {
+  color: #CFCDCD !important;
 }
 
 @keyframes App-logo-spin {

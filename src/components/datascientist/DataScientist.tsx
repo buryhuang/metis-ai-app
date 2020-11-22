@@ -1,31 +1,30 @@
 import React from 'react';
 
-import './DataSources.css';
+import './DataScientist.css';
 import {Button, Form, Modal, Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {ProviderCsv} from "./providers/ProviderCsv";
 import { Search } from '@material-ui/icons';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-interface DataSourcesProps {}
+interface DataScientistProps {}
 
-interface DataSourcesState {
+interface DataScientistState {
     email: string;
     code: string;
     errorMessage: string;
     showModal: boolean;
 }
 
-class DataSources extends React.Component<
-    DataSourcesProps,
-    DataSourcesState
+class DataScientist extends React.Component<
+    DataScientistProps,
+    DataScientistState
     > {
-    state: DataSourcesState;
+    state: DataScientistState;
 
-    constructor(props: DataSourcesProps) {
+    constructor(props: DataScientistProps) {
         super(props);
         this.state = {
             email: '-',
@@ -102,12 +101,6 @@ class DataSources extends React.Component<
 
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <div className="datasources-box">
-                                <p><img className="datasources-img" src="https://images.ctfassets.net/3n0fku9d0jjr/1caC38kuhK8WusWKQGIeAO/6a35483a56960b0ff258e5c6acb9c0d7/csv-autofetch.svg" /></p>
-                                {/*<a >Link Account</a>*/}
-                                <a onClick={() => this.setState({showModal: true})}>Link Account</a>
-                                {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
-                            </div>
                         </Grid>
                         <Grid item xs>
                             <div className="datasources-box"></div>
@@ -136,4 +129,4 @@ class DataSources extends React.Component<
     }
 }
 
-export { DataSources };
+export { DataScientist };
