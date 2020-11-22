@@ -39,23 +39,7 @@ class Dashboard extends React.Component<
         // this.setState({ email: user.attributes.email });
     }
 
-    // handleSuccess = (data) => {
-    //     this.setState({
-    //         code: data.code,
-    //         errorMessage: '',
-    //     });
-    // };
-    //
-    // handleFailure = (error) => {
-    //     this.setState({
-    //         code: '',
-    //         errorMessage: error.errorMessage,
-    //     });
-    // };
-
     render() {
-        const { code, errorMessage } = this.state;
-
         return (
             <div className="main-area">
                 <div className="main-area-contents">
