@@ -47,8 +47,6 @@ class App extends React.Component {
 
   renderContentFrame() {
     const { currentHeaderMenu } = this.state;
-    console.log(currentHeaderMenu);
-
     switch (currentHeaderMenu) {
       case 0:
         return (

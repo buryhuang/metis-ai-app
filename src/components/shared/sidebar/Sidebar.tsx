@@ -59,7 +59,7 @@ class Sidebar extends React.Component<
                 </List>
                 <Divider />
                 <List className="theme-sidebar-list">
-                    {['csv-sales-table1', 'csv-sales-table2', 'csv-product-table3'].map((text, index) => (
+                    {['csv_sales_table1', 'csv_sales_table2', 'csv_sales_table3'].map((text, index) => (
                         <ListItem className="theme-sidebar-menu-item" button key={text}>
                             <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
                             <ListItemText primary={text} />

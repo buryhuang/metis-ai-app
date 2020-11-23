@@ -16,40 +16,10 @@ interface DataScientistState {
     errorMessage: string;
     showModal: boolean;
     currentHeaderMenu: number;
+    resultColumns: any;
+    resultRows: any;
+    queryString: string;
 }
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 90,
-    },
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params: any) =>
-            `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-    },
-];
-
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
 
 class DataScientist extends React.Component<
     DataScientistProps,
@@ -64,11 +34,16 @@ class DataScientist extends React.Component<
             code: '',
             errorMessage: '',
             showModal: false,
-            currentHeaderMenu: 0
+            currentHeaderMenu: 0,
+            resultColumns: [],
+            resultRows: [],
+            queryString: "SELECT * FROM datastore.csv_sales_table1 LIMIT 100"
         };
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.renderContentFrame = this.renderContentFrame.bind(this);
         this.getActiveStyle = this.getActiveStyle.bind(this);
+        this.handleRunQuery = this.handleRunQuery.bind(this);
+        this.handleQueryChange = this.handleQueryChange.bind(this);
     }
 
     async componentDidMount() {
@@ -77,7 +52,38 @@ class DataScientist extends React.Component<
     }
 
     handleMenuClick(value: number): void {
-        this.setState({ currentHeaderMenu: value });
+        this.setState({
+            currentHeaderMenu: value,
+            resultRows: {}
+        });
+    }
+
+    handleQueryChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+        console.log(event?.target?.value);
+        this.setState({ queryString: event?.target?.value });
+    }
+
+    handleRunQuery(): void {
+        fetch("https://qvn38s6a8h.execute-api.us-east-1.amazonaws.com/dev", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            }
+        })
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((data) => {
+                const data_obj = JSON.parse(data.body)
+                this.setState({
+                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name'], 'width': 60}}),
+                    resultRows: data_obj['rows'],
+                })
+            })
+            .catch((error) => {
+                console.log(error, "Failed to load table data");
+                this.setState({errorMessage: error});
+            })
     }
 
     getActiveStyle(currentMenu: number): string {
@@ -89,8 +95,6 @@ class DataScientist extends React.Component<
 
     renderContentFrame() {
         const { currentHeaderMenu } = this.state;
-        console.log(currentHeaderMenu);
-
         switch (currentHeaderMenu) {
             case 0:
                 return <Dashboard />;
@@ -126,12 +130,11 @@ class DataScientist extends React.Component<
                             <Grid container>
                                 <div className="theme-description-box">
                                     <p>Metis A.I. Select supports only the SELECT SQL command. Using the Data Analyst console, you can extract up to 40 MB of records from an object that is up to 128 MB in size. To work with larger files or more records, for more complex SQL queries, use Data Science console.</p>
-                                    <Button className="theme-query-button">RUN Query</Button>
+                                    <Button className="theme-query-button" onClick={this.handleRunQuery}>RUN Query</Button>
                                 </div>
-                                <textarea className="theme-query-input-box" placeholder="Search for a data source" value="/* To create reference point for writing SQL queries, you can display the first 5 records of input data by running the following SQL query: SELECT * FROM s3object s LIMIT 5 */
-SELECT * FROM s3object s LIMIT 5"/>
+                                <textarea onChange={this.handleQueryChange} className="theme-query-input-box" placeholder="Search for a data source" value={this.state.queryString}/>
                                 <div className="theme-query-result" >
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+                                    <DataGrid rows={this.state.resultRows} columns={this.state.resultColumns} pageSize={10} />
                                 </div>
                             </Grid>
                         </Grid>
