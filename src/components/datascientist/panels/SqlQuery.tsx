@@ -56,7 +56,7 @@ class SqlQuery extends React.Component<
             })
             .then((data_obj) => {
                 this.setState({
-                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name'], 'width': 60}}),
+                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name']}}),
                     resultRows: data_obj['rows'],
                 })
             })
