@@ -2,43 +2,43 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
+export const createDataSource = /* GraphQL */ `
+  mutation CreateDataSource(
+    $input: CreateDataSourceInput!
+    $condition: ModelDataSourceConditionInput
   ) {
-    createUser(input: $input, condition: $condition) {
-      id
-      email
-      data
+    createDataSource(input: $input, condition: $condition) {
+      user_id
+      table_name
+      data_source
       createdAt
       updatedAt
     }
   }
 `;
-export const updateUser = /* GraphQL */ `
-  mutation UpdateUser(
-    $input: UpdateUserInput!
-    $condition: ModelUserConditionInput
+export const updateDataSource = /* GraphQL */ `
+  mutation UpdateDataSource(
+    $input: UpdateDataSourceInput!
+    $condition: ModelDataSourceConditionInput
   ) {
-    updateUser(input: $input, condition: $condition) {
-      id
-      email
-      data
+    updateDataSource(input: $input, condition: $condition) {
+      user_id
+      table_name
+      data_source
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
+export const deleteDataSource = /* GraphQL */ `
+  mutation DeleteDataSource(
+    $input: DeleteDataSourceInput!
+    $condition: ModelDataSourceConditionInput
   ) {
-    deleteUser(input: $input, condition: $condition) {
-      id
-      email
-      data
+    deleteDataSource(input: $input, condition: $condition) {
+      user_id
+      table_name
+      data_source
       createdAt
       updatedAt
     }

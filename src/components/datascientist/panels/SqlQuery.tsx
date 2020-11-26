@@ -77,6 +77,7 @@ class SqlQuery extends React.Component<
                     <textarea onChange={this.handleQueryChange} className="theme-query-input-box" placeholder="Search for a data source" value={this.state.queryString}/>
                     <div className="theme-query-result" >
                         <DataGrid rows={this.state.resultRows} columns={this.state.resultColumns} pageSize={10} />
+                        <div>{this.state.errorMessage}</div>
                     </div>
                 </Grid>
             </div>

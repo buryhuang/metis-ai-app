@@ -1,5 +1,5 @@
-type User @model {
-  id: ID!
-  email: String!
-  data: String
+type DataSource @model @key(fields: ["user_id", "table_name"]){
+  user_id: ID!
+  table_name: String!
+  data_source: String
 }

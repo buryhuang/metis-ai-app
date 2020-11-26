@@ -4,7 +4,7 @@ import {Button, Form} from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 
 import { API, graphqlOperation } from "aws-amplify";
-import { createUser } from '../../../graphql/mutations';
+import { createDataSource } from '../../../graphql/mutations';
 
 interface ProviderCsvProps {
     onSave: any;
@@ -25,7 +25,7 @@ class ProviderCsv extends React.Component<
     constructor(props: ProviderCsvProps) {
         super(props);
         this.state = {
-            tableName: 'csv-link-table-1',
+            tableName: 'csv_sales_table1',
             dataUrl: 'https://testcsvselect.s3.amazonaws.com/matching_results.csv',
             errorMessage: '',
         };
@@ -40,21 +40,17 @@ class ProviderCsv extends React.Component<
     }
 
     handleTableNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-        console.log(event?.target?.value);
         this.setState({ tableName: event?.target?.value });
     }
 
     handleDataUrlChange(event: React.ChangeEvent<HTMLInputElement>) {
-        console.log(event?.target?.value);
         this.setState({ dataUrl: event?.target?.value });
     }
 
     handleSave() {
-        console.log(this.state);
+        const dataSource = { user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f", table_name: this.state.tableName, data_source: JSON.stringify(this.state) };
 
-        const userData = { email: "david@johnsongroup.org", data: JSON.stringify(this.state) };
-
-        API.graphql(graphqlOperation(createUser, {input: userData}))
+        API.graphql(graphqlOperation(createDataSource, {input: dataSource}))
         this.props.onSave();
     }
 

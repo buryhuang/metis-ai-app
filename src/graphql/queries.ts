@@ -2,28 +2,38 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      email
-      data
+export const getDataSource = /* GraphQL */ `
+  query GetDataSource($user_id: ID!, $table_name: String!) {
+    getDataSource(user_id: $user_id, table_name: $table_name) {
+      user_id
+      table_name
+      data_source
       createdAt
       updatedAt
     }
   }
 `;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
+export const listDataSources = /* GraphQL */ `
+  query ListDataSources(
+    $user_id: ID
+    $table_name: ModelStringKeyConditionInput
+    $filter: ModelDataSourceFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listDataSources(
+      user_id: $user_id
+      table_name: $table_name
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
-        email
-        data
+        user_id
+        table_name
+        data_source
         createdAt
         updatedAt
       }
