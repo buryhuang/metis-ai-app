@@ -59,7 +59,7 @@ class Sidebar extends React.Component<
 
     async loadTableList() {
         const listTableQuery = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname = 'datastore'";
-        fetch("https://cs2vycpq5j.execute-api.us-east-1.amazonaws.com/dev?query=" + encodeURI(listTableQuery) + "&table=" + encodeURI("pg_tables"), {
+        fetch("https://hdhfcsdukf.execute-api.us-east-1.amazonaws.com/dev?query=" + encodeURI(listTableQuery) + "&table=" + encodeURI("pg_tables"), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",

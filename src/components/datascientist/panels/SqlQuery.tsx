@@ -45,7 +45,7 @@ class SqlQuery extends React.Component<
     }
 
     handleRunQuery(): void {
-        fetch("https://cs2vycpq5j.execute-api.us-east-1.amazonaws.com/dev?query=" + encodeURI(this.state.queryString) + "&table=" + encodeURI(this.state.tableName), {
+        fetch("https://hdhfcsdukf.execute-api.us-east-1.amazonaws.com/dev?query=" + encodeURI(this.state.queryString) + "&table=" + encodeURI(this.state.tableName), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
