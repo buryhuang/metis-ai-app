@@ -3,12 +3,16 @@ import React from 'react';
 import './Sidebar.css';
 import {Search} from '@material-ui/icons';
 
-import {Divider, List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
+import {Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listDataSources } from '../../../graphql/queries';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import {Modal} from "react-bootstrap";
+import {ProviderCsv} from "../../datasources/providers/ProviderCsv";
 
 interface SidebarProps {
     handleListClick: any;
@@ -88,6 +92,14 @@ class Sidebar extends React.Component<
             <div className="theme-sidebar">
                 <input className="theme-sidebar-input" placeholder="Search for a data source"/>&nbsp;<a><Search className="theme-button-icon" /></a>
                 <div />
+                <Grid container>
+                    <Grid item xs={8}></Grid>
+                    <Grid item xs={4}>
+                        <Button onClick={() => this.setState({showModal: true})}><AddCircleIcon className="theme-button"/></Button>
+                        {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
+                    </Grid>
+                </Grid>
+                <Divider />
                 <div className="theme-sidebar-list-title">RECENT TABLES</div>
                 <Divider />
                 <List className="theme-sidebar-list">
@@ -95,6 +107,7 @@ class Sidebar extends React.Component<
                         <ListItem className="theme-sidebar-menu-item" button key={text} onClick={() => this.props.handleListClick(text)}>
                             <ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
+                            <Button><RefreshIcon/></Button>
                         </ListItem>
                     ))}
                 </List>

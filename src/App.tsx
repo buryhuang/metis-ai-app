@@ -49,13 +49,11 @@ class App extends React.Component {
     const { currentHeaderMenu } = this.state;
     switch (currentHeaderMenu) {
       case 0:
-        return (
-            <Dashboard />
-        );
-      case 1:
-        return <DataSources />;
-      case 2:
         return <DataScientist />;
+      case 1:
+        return <Dashboard />;
+      case 2:
+        return <DataSources />;
     }
   }
 
@@ -71,15 +69,15 @@ class App extends React.Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto theme-nav-menu-item">
-                  <a className={this.getActiveStyle(0)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
+                  <a  className={this.getActiveStyle(0)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
                       this.handleMenuClick(0)
-                  }>Dashboard</a>
+                  }>Data Scientist</a>
                   <a className={this.getActiveStyle(1)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
                       this.handleMenuClick(1)
-                  }>Data Sources</a>
-                  <a  className={this.getActiveStyle(2)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
-                      this.handleMenuClick(2)
-                  }>Data Scientist</a>
+                  }>Jobs</a>
+                  {/*<a className={this.getActiveStyle(1)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>*/}
+                  {/*    this.handleMenuClick(1)*/}
+                  {/*}>Data Sources</a>*/}
                 </Nav>
                 <Form inline>
                   <Search className="theme-button-icon"/>
