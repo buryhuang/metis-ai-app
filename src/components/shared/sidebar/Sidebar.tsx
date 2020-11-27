@@ -10,7 +10,9 @@ import { listDataSources } from '../../../graphql/queries';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-interface SidebarProps {}
+interface SidebarProps {
+    handleListClick: any;
+}
 
 interface SidebarState {
     email: string;
@@ -90,7 +92,7 @@ class Sidebar extends React.Component<
                 <Divider />
                 <List className="theme-sidebar-list">
                     {this.state.jobList.map((text: string, index: number) => (
-                        <ListItem className="theme-sidebar-menu-item" button key={text}>
+                        <ListItem className="theme-sidebar-menu-item" button key={text} onClick={() => this.props.handleListClick(text)}>
                             <ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>

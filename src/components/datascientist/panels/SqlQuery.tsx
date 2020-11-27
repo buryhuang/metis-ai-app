@@ -6,6 +6,8 @@ import {Button} from "@material-ui/core";
 import {DataGrid} from "@material-ui/data-grid";
 
 interface SqlQueryProps {
+        defaultQuery: string;
+        tableName: string;
 }
 
 interface SqlQueryState {
@@ -27,8 +29,8 @@ class SqlQuery extends React.Component<
         this.state = {
             resultColumns: [],
             resultRows: [],
-            queryString: "SELECT * FROM datastore.csv_sales_table1 LIMIT 15",
-            tableName: "csv_sales_table1",
+            queryString: props.defaultQuery,
+            tableName: props.tableName,
             errorMessage: ""
         };
         this.handleRunQuery = this.handleRunQuery.bind(this);

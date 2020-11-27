@@ -13,6 +13,8 @@ interface DataScientistState {
     errorMessage: string;
     showModal: boolean;
     currentHeaderMenu: number;
+    defaultQuery: string;
+    tableName: string;
 }
 
 class DataScientist extends React.Component<
@@ -29,10 +31,13 @@ class DataScientist extends React.Component<
             errorMessage: '',
             showModal: false,
             currentHeaderMenu: 0,
+            defaultQuery: 'SELECT * FROM datastore.csv_sales_table1 LIMIT 15',
+            tableName: 'csv_sales_table1'
         };
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.renderContentFrame = this.renderContentFrame.bind(this);
         this.getActiveStyle = this.getActiveStyle.bind(this);
+        this.handleSidebarListClick = this.handleSidebarListClick.bind(this);
     }
 
     async componentDidMount() {
@@ -57,12 +62,19 @@ class DataScientist extends React.Component<
         const { currentHeaderMenu } = this.state;
         switch (currentHeaderMenu) {
             case 0:
-                return <SqlQuery />;
+                return <SqlQuery key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery}/>;
             // case 1:
             //     return <DataSources />;
             // case 2:
             //     return <DataScientist />;
         }
+    }
+
+    handleSidebarListClick(tableName: string) {
+        this.setState({
+            tableName: tableName,
+            defaultQuery: 'SELECT * FROM datastore.' + tableName +' LIMIT 15'
+        })
     }
 
     render() {
@@ -73,7 +85,7 @@ class DataScientist extends React.Component<
                 <div className="main-area-contents">
                     <Grid container spacing={3}>
                         <Grid item xs={4}>
-                            <Sidebar />
+                            <Sidebar handleListClick={this.handleSidebarListClick} />
                         </Grid>
                         <Grid item xs={8} className="">
                             <Grid container>
