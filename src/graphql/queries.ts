@@ -43,3 +43,46 @@ export const listDataSources = /* GraphQL */ `
     }
   }
 `;
+export const getPipelineJob = /* GraphQL */ `
+  query GetPipelineJob($pk: String!, $timestamp: String!) {
+    getPipelineJob(pk: $pk, timestamp: $timestamp) {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPipelineJobs = /* GraphQL */ `
+  query ListPipelineJobs(
+    $pk: String
+    $timestamp: ModelStringKeyConditionInput
+    $filter: ModelPipelineJobFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listPipelineJobs(
+      pk: $pk
+      timestamp: $timestamp
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        pk
+        timestamp
+        state_code
+        state_message
+        state_status
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

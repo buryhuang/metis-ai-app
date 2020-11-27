@@ -69,6 +69,36 @@ export type DeleteDataSourceInput = {
   table_name: string,
 };
 
+export type CreatePipelineJobInput = {
+  pk: string,
+  timestamp: string,
+  state_code?: string | null,
+  state_message?: string | null,
+  state_status?: string | null,
+};
+
+export type ModelPipelineJobConditionInput = {
+  state_code?: ModelStringInput | null,
+  state_message?: ModelStringInput | null,
+  state_status?: ModelStringInput | null,
+  and?: Array< ModelPipelineJobConditionInput | null > | null,
+  or?: Array< ModelPipelineJobConditionInput | null > | null,
+  not?: ModelPipelineJobConditionInput | null,
+};
+
+export type UpdatePipelineJobInput = {
+  pk: string,
+  timestamp: string,
+  state_code?: string | null,
+  state_message?: string | null,
+  state_status?: string | null,
+};
+
+export type DeletePipelineJobInput = {
+  pk: string,
+  timestamp: string,
+};
+
 export type ModelStringKeyConditionInput = {
   eq?: string | null,
   le?: string | null,
@@ -110,6 +140,17 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
+
+export type ModelPipelineJobFilterInput = {
+  pk?: ModelStringInput | null,
+  timestamp?: ModelStringInput | null,
+  state_code?: ModelStringInput | null,
+  state_message?: ModelStringInput | null,
+  state_status?: ModelStringInput | null,
+  and?: Array< ModelPipelineJobFilterInput | null > | null,
+  or?: Array< ModelPipelineJobFilterInput | null > | null,
+  not?: ModelPipelineJobFilterInput | null,
+};
 
 export type CreateDataSourceMutationVariables = {
   input: CreateDataSourceInput,
@@ -162,6 +203,60 @@ export type DeleteDataSourceMutation = {
   } | null,
 };
 
+export type CreatePipelineJobMutationVariables = {
+  input: CreatePipelineJobInput,
+  condition?: ModelPipelineJobConditionInput | null,
+};
+
+export type CreatePipelineJobMutation = {
+  createPipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePipelineJobMutationVariables = {
+  input: UpdatePipelineJobInput,
+  condition?: ModelPipelineJobConditionInput | null,
+};
+
+export type UpdatePipelineJobMutation = {
+  updatePipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePipelineJobMutationVariables = {
+  input: DeletePipelineJobInput,
+  condition?: ModelPipelineJobConditionInput | null,
+};
+
+export type DeletePipelineJobMutation = {
+  deletePipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetDataSourceQueryVariables = {
   user_id: string,
   table_name: string,
@@ -204,6 +299,50 @@ export type ListDataSourcesQuery = {
   } | null,
 };
 
+export type GetPipelineJobQueryVariables = {
+  pk: string,
+  timestamp: string,
+};
+
+export type GetPipelineJobQuery = {
+  getPipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPipelineJobsQueryVariables = {
+  pk?: string | null,
+  timestamp?: ModelStringKeyConditionInput | null,
+  filter?: ModelPipelineJobFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListPipelineJobsQuery = {
+  listPipelineJobs:  {
+    __typename: "ModelPipelineJobConnection",
+    items:  Array< {
+      __typename: "PipelineJob",
+      pk: string,
+      timestamp: string,
+      state_code: string | null,
+      state_message: string | null,
+      state_status: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
 export type OnCreateDataSourceSubscription = {
   onCreateDataSource:  {
     __typename: "DataSource",
@@ -235,6 +374,45 @@ export type OnDeleteDataSourceSubscription = {
     table_name: string,
     data_source: string | null,
     refresh_request: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePipelineJobSubscription = {
+  onCreatePipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePipelineJobSubscription = {
+  onUpdatePipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePipelineJobSubscription = {
+  onDeletePipelineJob:  {
+    __typename: "PipelineJob",
+    pk: string,
+    timestamp: string,
+    state_code: string | null,
+    state_message: string | null,
+    state_status: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

@@ -47,3 +47,51 @@ export const deleteDataSource = /* GraphQL */ `
     }
   }
 `;
+export const createPipelineJob = /* GraphQL */ `
+  mutation CreatePipelineJob(
+    $input: CreatePipelineJobInput!
+    $condition: ModelPipelineJobConditionInput
+  ) {
+    createPipelineJob(input: $input, condition: $condition) {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePipelineJob = /* GraphQL */ `
+  mutation UpdatePipelineJob(
+    $input: UpdatePipelineJobInput!
+    $condition: ModelPipelineJobConditionInput
+  ) {
+    updatePipelineJob(input: $input, condition: $condition) {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePipelineJob = /* GraphQL */ `
+  mutation DeletePipelineJob(
+    $input: DeletePipelineJobInput!
+    $condition: ModelPipelineJobConditionInput
+  ) {
+    deletePipelineJob(input: $input, condition: $condition) {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;

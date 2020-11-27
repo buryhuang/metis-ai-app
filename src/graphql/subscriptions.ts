@@ -38,3 +38,42 @@ export const onDeleteDataSource = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePipelineJob = /* GraphQL */ `
+  subscription OnCreatePipelineJob {
+    onCreatePipelineJob {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePipelineJob = /* GraphQL */ `
+  subscription OnUpdatePipelineJob {
+    onUpdatePipelineJob {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePipelineJob = /* GraphQL */ `
+  subscription OnDeletePipelineJob {
+    onDeletePipelineJob {
+      pk
+      timestamp
+      state_code
+      state_message
+      state_status
+      createdAt
+      updatedAt
+    }
+  }
+`;

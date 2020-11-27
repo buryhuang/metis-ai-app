@@ -4,13 +4,15 @@ import './Dashboard.css';
 import Grid from '@material-ui/core/Grid';
 
 import Stepper from '@material-ui/core/Stepper';
-import {Step, StepLabel} from "@material-ui/core";
+import {Button, List, ListItem, ListItemIcon, ListItemText, Step, StepLabel} from "@material-ui/core";
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import StorageIcon from '@material-ui/icons/Storage';
 import CloudCircleIcon from '@material-ui/icons/CloudCircle';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {API, graphqlOperation} from "aws-amplify";
 import {listDataSources} from "../../graphql/queries";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import RefreshIcon from "@material-ui/icons/Refresh";
 
 interface DashboardProps {}
 
@@ -47,6 +49,21 @@ class StepSettingIcon extends React.Component {
     render() {
         return (
             <div><SettingsApplicationsIcon/></div>
+        );
+    }
+}
+
+class EventList extends React.Component<any, any> {
+    render() {
+        return (
+        <List className="theme-sidebar-list">
+            {["a","b"].map((text: string, index: number) => (
+                <ListItem className="theme-sidebar-menu-item" button key={text}>
+                    {/*<ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>*/}
+                    <ListItemText primary={text} />
+                </ListItem>
+            ))}
+        </List>
         );
     }
 }
@@ -113,6 +130,7 @@ class Dashboard extends React.Component<
                                         <StepLabel StepIconComponent={StepCloudIcon}>Database</StepLabel>
                                     </Step>
                                 </Stepper>
+                                <EventList />
                             </Grid>
                             <Grid item xs={2}>
                             </Grid>

@@ -4,3 +4,10 @@ type DataSource @model @key(fields: ["user_id", "table_name"]){
   data_source: String
   refresh_request: String
 }
+type PipelineJob @model @key(fields: ["pk", "timestamp"]){
+  pk: String!
+  timestamp: String!
+  state_code: String
+  state_message: String
+  state_status: String
+}
