@@ -1,13 +1,16 @@
 import React from 'react';
 
 import './Dashboard.css';
-import {Button, Form, Modal, Nav} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import { Search } from '@material-ui/icons';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+
+import Stepper from '@material-ui/core/Stepper';
+import {Step, StepLabel} from "@material-ui/core";
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import StorageIcon from '@material-ui/icons/Storage';
+import CloudCircleIcon from '@material-ui/icons/CloudCircle';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {API, graphqlOperation} from "aws-amplify";
+import {listDataSources} from "../../graphql/queries";
 
 interface DashboardProps {}
 
@@ -16,6 +19,36 @@ interface DashboardState {
     code: string;
     errorMessage: string;
     showModal: boolean;
+    tableList: any;
+}
+class StepTransitionIcon extends React.Component {
+    render() {
+        return (
+            <div><MoreHorizIcon/></div>
+        );
+    }
+}
+
+class StepStorageIcon extends React.Component {
+    render() {
+        return (
+            <div><StorageIcon/></div>
+        );
+    }
+}
+class StepCloudIcon extends React.Component {
+    render() {
+        return (
+            <div><CloudCircleIcon/></div>
+        );
+    }
+}
+class StepSettingIcon extends React.Component {
+    render() {
+        return (
+            <div><SettingsApplicationsIcon/></div>
+        );
+    }
 }
 
 class Dashboard extends React.Component<
@@ -30,20 +63,61 @@ class Dashboard extends React.Component<
             email: '-',
             code: '',
             errorMessage: '',
-            showModal: false
+            showModal: false,
+            tableList: ["No Data"]
         };
     }
 
     async componentDidMount() {
         // let user = await Auth.currentAuthenticatedUser();
         // this.setState({ email: user.attributes.email });
+        this.loadTableList();
+    }
+
+    async loadTableList() {
+        const result: any = await API.graphql(graphqlOperation(listDataSources, {user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f"}));
+        if (result.data.listDataSources.items.length > 0) {
+            this.setState({
+                tableList: result.data.listDataSources.items.map((x: any) => {
+                    return x['table_name']
+                })
+            })
+        }
     }
 
     render() {
         return (
             <div className="main-area">
                 <div className="main-area-contents">
-                    <img src={process.env.PUBLIC_URL + "assets/pipline_example.png"} />
+                    {this.state.tableList.map((table_name: string) =>
+                        <Grid container spacing={3}>
+                            <Grid item xs={2}>
+                                <div>{table_name}</div>
+                                <div></div>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Stepper alternativeLabel>
+                                    <Step key="step1" >
+                                        <StepLabel StepIconComponent={StepSettingIcon}>Data Source</StepLabel>
+                                    </Step>
+                                    <Step key="step1-2" >
+                                        <StepLabel StepIconComponent={StepTransitionIcon}></StepLabel>
+                                    </Step>
+                                    <Step key="step2" >
+                                        <StepLabel StepIconComponent={StepStorageIcon}>Storage</StepLabel>
+                                    </Step>
+                                    <Step key="step1-2" >
+                                        <StepLabel StepIconComponent={StepTransitionIcon}></StepLabel>
+                                    </Step>
+                                    <Step key="step3" >
+                                        <StepLabel StepIconComponent={StepCloudIcon}>Database</StepLabel>
+                                    </Step>
+                                </Stepper>
+                            </Grid>
+                            <Grid item xs={2}>
+                            </Grid>
+                        </Grid>
+                    )}
                 </div>
             </div>
         );
