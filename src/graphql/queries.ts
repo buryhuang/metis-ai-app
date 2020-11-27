@@ -8,6 +8,7 @@ export const getDataSource = /* GraphQL */ `
       user_id
       table_name
       data_source
+      refresh_request
       createdAt
       updatedAt
     }
@@ -34,6 +35,7 @@ export const listDataSources = /* GraphQL */ `
         user_id
         table_name
         data_source
+        refresh_request
         createdAt
         updatedAt
       }

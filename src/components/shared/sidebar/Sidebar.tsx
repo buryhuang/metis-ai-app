@@ -13,6 +13,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {Modal} from "react-bootstrap";
 import {ProviderCsv} from "../../datasources/providers/ProviderCsv";
+import {updateDataSource} from "../../../graphql/mutations";
 
 interface SidebarProps {
     handleListClick: any;
@@ -47,6 +48,7 @@ class Sidebar extends React.Component<
             tableList: [],
             jobList: []
         };
+        this.handleRefreshTable = this.handleRefreshTable.bind(this);
     }
 
     async componentDidMount() {
@@ -87,6 +89,11 @@ class Sidebar extends React.Component<
             })
     }
 
+    handleRefreshTable(tableName: string) {
+        const dataSource = { user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f", table_name: tableName, refresh_request: Date.now() };
+        API.graphql(graphqlOperation(updateDataSource, {input: dataSource}))
+    }
+
     render() {
         return (
             <div className="theme-sidebar">
@@ -107,7 +114,7 @@ class Sidebar extends React.Component<
                         <ListItem className="theme-sidebar-menu-item" button key={text} onClick={() => this.props.handleListClick(text)}>
                             <ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
-                            <Button><RefreshIcon/></Button>
+                            <Button onClick={() => {this.handleRefreshTable(text)}}><RefreshIcon/></Button>
                         </ListItem>
                     ))}
                 </List>

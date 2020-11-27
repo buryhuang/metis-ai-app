@@ -11,6 +11,7 @@ export const createDataSource = /* GraphQL */ `
       user_id
       table_name
       data_source
+      refresh_request
       createdAt
       updatedAt
     }
@@ -25,6 +26,7 @@ export const updateDataSource = /* GraphQL */ `
       user_id
       table_name
       data_source
+      refresh_request
       createdAt
       updatedAt
     }
@@ -39,6 +41,7 @@ export const deleteDataSource = /* GraphQL */ `
       user_id
       table_name
       data_source
+      refresh_request
       createdAt
       updatedAt
     }

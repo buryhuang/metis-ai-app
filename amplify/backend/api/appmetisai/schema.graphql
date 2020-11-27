@@ -2,4 +2,5 @@ type DataSource @model @key(fields: ["user_id", "table_name"]){
   user_id: ID!
   table_name: String!
   data_source: String
+  refresh_request: String
 }
