@@ -198,6 +198,11 @@ a:hover, a:active {
   color: #CFCDCD !important;
 }
 
+.theme-error-message-box {
+  color: lightcoral;
+  height: 40px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
