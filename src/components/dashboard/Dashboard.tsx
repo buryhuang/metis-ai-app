@@ -11,6 +11,7 @@ import CloudCircleIcon from '@material-ui/icons/CloudCircle';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {API, graphqlOperation} from "aws-amplify";
 import {listDataSources} from "../../graphql/queries";
+import {listPipelineJobs} from "../../graphql/queries";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import RefreshIcon from "@material-ui/icons/Refresh";
 
@@ -53,12 +54,45 @@ class StepSettingIcon extends React.Component {
     }
 }
 
-class EventList extends React.Component<any, any> {
+interface EventListProps {
+    tableName: string;
+    userId: string;
+}
+
+interface EventListState {
+    events: any;
+}
+
+class EventList extends React.Component<EventListProps, any> {
+    constructor(props: EventListProps) {
+        super(props);
+        this.state = {
+            events: []
+        };
+    }
+
+    async componentDidMount() {
+        // let user = await Auth.currentAuthenticatedUser();
+        // this.setState({ email: user.attributes.email });
+        await this.loadEventList();
+    }
+
+    async loadEventList() {
+        const result: any = await API.graphql(graphqlOperation(listPipelineJobs, {pk: `${this.props.userId}#${this.props.tableName}`}));
+        if (result.data.listPipelineJobs.items.length > 0) {
+            this.setState({
+                events: result.data.listPipelineJobs.items.reverse().map((x: any) => {
+                    return `${new Date(parseFloat(x['timestamp'])*1000)} | ${x['state_code']} | ${x['state_status']} | ${x['state_message']}`
+                })
+            })
+        }
+    }
+
     render() {
         return (
-        <List className="theme-sidebar-list">
-            {["a","b"].map((text: string, index: number) => (
-                <ListItem className="theme-sidebar-menu-item" button key={text}>
+        <List className="theme-event-list">
+            {this.state.events.map((text: string, index: number) => (
+                <ListItem className="theme-event-list-item" button key={text}>
                     {/*<ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>*/}
                     <ListItemText primary={text} />
                 </ListItem>
@@ -123,14 +157,14 @@ class Dashboard extends React.Component<
                                     <Step key="step2" >
                                         <StepLabel StepIconComponent={StepStorageIcon}>Storage</StepLabel>
                                     </Step>
-                                    <Step key="step1-2" >
+                                    <Step key="step2-3" >
                                         <StepLabel StepIconComponent={StepTransitionIcon}></StepLabel>
                                     </Step>
                                     <Step key="step3" >
                                         <StepLabel StepIconComponent={StepCloudIcon}>Database</StepLabel>
                                     </Step>
                                 </Stepper>
-                                <EventList />
+                                <EventList key={`"0dffa840-c3cf-459c-8052-1e3877037e5f"#${table_name}`} userId="0dffa840-c3cf-459c-8052-1e3877037e5f" tableName={table_name} />
                             </Grid>
                             <Grid item xs={2}>
                             </Grid>

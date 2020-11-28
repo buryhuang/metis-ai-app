@@ -159,6 +159,16 @@
   margin-bottom: 10px;
 }
 
+.theme-event-list {
+  background-color: white;
+  border-radius: 3px;
+  max-height: 400px;
+}
+
+theme-event-list-item {
+  font-size: 8px;
+}
+
 .MuiTypography-body1 {
   font-size:12px !important;
   margin-top: 0px !important;
