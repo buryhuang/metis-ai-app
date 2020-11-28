@@ -4,6 +4,7 @@ import './DataScientist.css';
 import Grid from '@material-ui/core/Grid';
 import {SqlQuery} from "./panels/SqlQuery";
 import {Sidebar} from "../shared/sidebar/Sidebar";
+import {JupyterNotebook} from "./panels/JupyterNotebook";
 
 interface DataScientistProps {}
 
@@ -63,8 +64,8 @@ class DataScientist extends React.Component<
         switch (currentHeaderMenu) {
             case 0:
                 return <SqlQuery key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery}/>;
-            // case 1:
-            //     return <DataSources />;
+            case 1:
+                return <JupyterNotebook key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery}/>;
             // case 2:
             //     return <DataScientist />;
         }
@@ -95,9 +96,9 @@ class DataScientist extends React.Component<
                                 <a className={this.getActiveStyle(1)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
                                     this.handleMenuClick(1)
                                 }>JUPYTER NOTEBOOK</a>
-                                <a  className={this.getActiveStyle(2)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>
-                                    this.handleMenuClick(2)
-                                }>R ANALYSIS</a>
+                                {/*<a  className={this.getActiveStyle(2)} href="#" onClick={(event: SyntheticEvent<HTMLAnchorElement>) =>*/}
+                                {/*    this.handleMenuClick(2)*/}
+                                {/*}>R ANALYSIS</a>*/}
                             </Grid>
                             { this.renderContentFrame() }
                         </Grid>
