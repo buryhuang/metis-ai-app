@@ -3,7 +3,7 @@ import React from 'react';
 import './Sidebar.css';
 import {Search} from '@material-ui/icons';
 
-import {Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
+import {Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listDataSources } from '../../../graphql/queries';
@@ -14,6 +14,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import {Modal} from "react-bootstrap";
 import {ProviderCsv} from "../../datasources/providers/ProviderCsv";
 import {updateDataSource} from "../../../graphql/mutations";
+import {DropzoneDialog} from 'material-ui-dropzone'
 
 interface SidebarProps {
     handleListClick: any;
@@ -27,7 +28,9 @@ interface SidebarState {
     resultColumns: any,
     resultRows: any,
     tableList: any,
-    jobList: any
+    jobList: any,
+    menuButton: any,
+    openFileUploadDialog: boolean,
 }
 
 class Sidebar extends React.Component<
@@ -46,7 +49,9 @@ class Sidebar extends React.Component<
             resultColumns: [],
             resultRows: [],
             tableList: [],
-            jobList: []
+            jobList: [],
+            menuButton: null,
+            openFileUploadDialog: false
         };
         this.handleRefreshTable = this.handleRefreshTable.bind(this);
     }
@@ -94,6 +99,22 @@ class Sidebar extends React.Component<
         API.graphql(graphqlOperation(updateDataSource, {input: dataSource}))
     }
 
+    handleMenuClick(event: React.MouseEvent<HTMLButtonElement>) {
+        this.setState({menuButton: event.currentTarget});
+    };
+
+    handleMenuClose() {
+        this.setState({menuButton: null});
+    }
+
+    handleUploadFilesSave() {
+        this.setState({openFileUploadDialog:false});
+    }
+
+    handleUploadFilesClose() {
+        this.setState({openFileUploadDialog: false});
+    }
+
     render() {
         return (
             <div className="theme-sidebar">
@@ -102,8 +123,20 @@ class Sidebar extends React.Component<
                 <Grid container>
                     <Grid item xs={8}></Grid>
                     <Grid item xs={4}>
-                        <Button onClick={() => this.setState({showModal: true})}><AddCircleIcon className="theme-button"/></Button>
+                        <Button onClick={this.handleMenuClick.bind(this)}><AddCircleIcon className="theme-button"/></Button>
+                        <Menu anchorEl={this.state.menuButton} open={Boolean(this.state.menuButton)} onClose={this.handleMenuClose.bind(this)}>
+                            <MenuItem onClick={()=> this.setState({showModal: true, menuButton: null})}>Data Source From Url</MenuItem>
+                            <MenuItem onClick={()=> this.setState({openFileUploadDialog: true, menuButton: null})}>Upload Files</MenuItem>
+                        </Menu>
                         {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
+                        <DropzoneDialog
+                            open={this.state.openFileUploadDialog}
+                            onSave={this.handleUploadFilesSave.bind(this)}
+                            acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                            showPreviews={true}
+                            maxFileSize={5000000}
+                            onClose={this.handleUploadFilesClose.bind(this)}
+                        />
                     </Grid>
                 </Grid>
                 <Divider />
@@ -118,15 +151,6 @@ class Sidebar extends React.Component<
                         </ListItem>
                     ))}
                 </List>
-                {/*<Divider />*/}
-                {/*<List className="theme-sidebar-list">*/}
-                {/*    {['csv_sales_table1', 'csv_sales_table2', 'csv_sales_table3'].map((text, index) => (*/}
-                {/*        <ListItem className="theme-sidebar-menu-item" button key={text}>*/}
-                {/*            <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>*/}
-                {/*            <ListItemText primary={text} />*/}
-                {/*        </ListItem>*/}
-                {/*    ))}*/}
-                {/*</List>*/}
             </div>
         );
     }
