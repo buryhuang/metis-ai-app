@@ -15,6 +15,7 @@ import {Modal} from "react-bootstrap";
 import {ProviderCsv} from "../../datasources/providers/ProviderCsv";
 import {updateDataSource} from "../../../graphql/mutations";
 import {DropzoneDialog} from 'material-ui-dropzone'
+import axios from 'axios';
 
 interface SidebarProps {
     handleListClick: any;
@@ -107,7 +108,20 @@ class Sidebar extends React.Component<
         this.setState({menuButton: null});
     }
 
-    handleUploadFilesSave() {
+    async handleUploadFilesSave(files: File[], event: React.SyntheticEvent) {
+        // Create an object of formData
+        const formData = new FormData();
+
+        // Update the formData object
+        const file = files[0]
+        formData.append(
+            file.name,
+            file
+        );
+        await axios.post("https://hdhfcsdukf.execute-api.us-east-1.amazonaws.com/dev/upload",
+            formData,
+            { headers: {'Content-Type':'multipart/form-data'}});
+
         this.setState({openFileUploadDialog:false});
     }
 
@@ -132,9 +146,9 @@ class Sidebar extends React.Component<
                         <DropzoneDialog
                             open={this.state.openFileUploadDialog}
                             onSave={this.handleUploadFilesSave.bind(this)}
-                            acceptedFiles={['.csv']}
+                            acceptedFiles={['.csv', 'text/csv']}
                             showPreviews={true}
-                            maxFileSize={5000000}
+                            maxFileSize={50000000}
                             onClose={this.handleUploadFilesClose.bind(this)}
                         />
                     </Grid>
