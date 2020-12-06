@@ -132,7 +132,7 @@ class Sidebar extends React.Component<
                         <DropzoneDialog
                             open={this.state.openFileUploadDialog}
                             onSave={this.handleUploadFilesSave.bind(this)}
-                            acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                            acceptedFiles={['.csv']}
                             showPreviews={true}
                             maxFileSize={5000000}
                             onClose={this.handleUploadFilesClose.bind(this)}
