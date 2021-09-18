@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Box, makeStyles, createStyles, Button, TextField, InputAdornment, Divider, Grid } from '@material-ui/core';
+import { Box, makeStyles, createStyles, Button, TextField, InputAdornment, Divider, Grid, IconButton } from '@material-ui/core';
 import Header from '../../components/Header/Header';
 import { Search } from "@material-ui/icons";
-
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import RefreshIcon from '../../assets/refresh.png';
 import LeftArrowIcon from '../../assets/leftArrow.png';
 import RightArrowIcon from '../../assets/rightArrow.png';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) =>
 
 const Detail = () => {
     const classes = useStyles();
+    const history = useHistory();
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
 
@@ -49,7 +51,12 @@ const Detail = () => {
             <Header />
             <Box className={classes.innerContainer}>
                 <Grid container alignItems="center">
-                    <Grid item sm={3}>
+                    <Grid item sm={1}>
+                        <IconButton onClick={() => history.goBack()}>
+                            <KeyboardBackspaceIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item sm={2}>
                         <Box>
                             <span style={{ fontWeight: 700 }}>SQL QUERY</span>
                         </Box>
