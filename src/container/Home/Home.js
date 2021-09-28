@@ -13,50 +13,51 @@ import Image3 from '../../assets/trending/3.png';
 import Image4 from '../../assets/trending/4.png';
 import Image5 from '../../assets/trending/5.png';
 import { useHistory } from 'react-router';
+import { fetchRequest } from '../../Utils/FetchRequest';
 
 const popularData = [
     {
         id: 1,
         image: Image1,
-        title: 'Amazon.com, Inc. (AMZN)',
-        description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
-        updatedAt: ' Updated 2 weeks ago',
+        ds_name: 'Amazon.com, Inc. (AMZN)',
+        ds_description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
+        ds_init_timestamp: ' Updated 2 weeks ago',
         usability: 'Usability 1.0, 13KB',
         counter: '15 files (CSV)',
     },
     {
         id: 2,
         image: Image2,
-        title: '2021 Olympic in Toyko',
-        description: 'Data about Athletes, Teams, Coaches, Events.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: '2021 Olympic in Toyko',
+        ds_description: 'Data about Athletes, Teams, Coaches, Events.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 390KB',
         counter: '2 Tasks, 5 files (CSV)',
     },
     {
         id: 3,
         image: Image3,
-        title: 'Red Wine Quality',
-        description: 'Simple and clean practice dataset for regression',
-        updatedAt: ' Updated 13 hours ago',
+        ds_name: 'Red Wine Quality',
+        ds_description: 'Simple and clean practice dataset for regression',
+        ds_init_timestamp: ' Updated 13 hours ago',
         usability: 'Usability 1.0, 329KB',
         counter: '4 files (CSV)',
     },
     {
         id: 4,
         image: Image4,
-        title: 'Bitcoin tweets - 16M tweets',
-        description: 'Market Based Sentiment Assignment with Stock Data',
-        updatedAt: ' Updated 4 hours ago',
+        ds_name: 'Bitcoin tweets - 16M tweets',
+        ds_description: 'Market Based Sentiment Assignment with Stock Data',
+        ds_init_timestamp: ' Updated 4 hours ago',
         usability: 'Usability 5.0, 3KB',
         counter: '1 Tasks,1 files (CSV)',
     },
     {
         id: 5,
         image: Image5,
-        title: 'Google Play Store Apps',
-        description: 'Web scraped data of 10k Play Store apps.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: 'Google Play Store Apps',
+        ds_description: 'Web scraped data of 10k Play Store apps.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 514KB',
         counter: '7 tasks, 25 files (CSV)',
     },
@@ -66,93 +67,101 @@ const selectedTabData = [
     {
         id: 1,
         image: Image1,
-        title: 'Amazon.com, Inc. (AMZN)',
-        description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
-        updatedAt: ' Updated 2 weeks ago',
+        ds_name: 'Amazon.com, Inc. (AMZN)',
+        ds_description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
+        ds_init_timestamp: ' Updated 2 weeks ago',
         usability: 'Usability 1.0, 13KB',
         counter: '15 files (CSV)',
     },
     {
         id: 2,
         image: Image2,
-        title: '2021 Olympic in Toyko',
-        description: 'Data about Athletes, Teams, Coaches, Events.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: '2021 Olympic in Toyko',
+        ds_description: 'Data about Athletes, Teams, Coaches, Events.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 390KB',
         counter: '2 Tasks, 5 files (CSV)',
     },
     {
         id: 3,
         image: Image3,
-        title: 'Red Wine Quality',
-        description: 'Simple and clean practice dataset for regression',
-        updatedAt: ' Updated 13 hours ago',
+        ds_name: 'Red Wine Quality',
+        ds_description: 'Simple and clean practice dataset for regression',
+        ds_init_timestamp: ' Updated 13 hours ago',
         usability: 'Usability 1.0, 329KB',
         counter: '4 files (CSV)',
     },
     {
         id: 4,
         image: Image4,
-        title: 'Bitcoin tweets - 16M tweets',
-        description: 'Market Based Sentiment Assignment with Stock Data',
-        updatedAt: ' Updated 4 hours ago',
+        ds_name: 'Bitcoin tweets - 16M tweets',
+        ds_description: 'Market Based Sentiment Assignment with Stock Data',
+        ds_init_timestamp: ' Updated 4 hours ago',
         usability: 'Usability 5.0, 3KB',
         counter: '1 Tasks,1 files (CSV)',
     },
     {
         id: 5,
         image: Image5,
-        title: 'Google Play Store Apps',
-        description: 'Web scraped data of 10k Play Store apps.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: 'Google Play Store Apps',
+        ds_description: 'Web scraped data of 10k Play Store apps.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 514KB',
         counter: '7 tasks, 25 files (CSV)',
     },
     {
         id: 6,
         image: Image1,
-        title: 'Amazon.com, Inc. (AMZN)',
-        description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
-        updatedAt: ' Updated 2 weeks ago',
+        ds_name: 'Amazon.com, Inc. (AMZN)',
+        ds_description: 'Stock Price of Amazon.com from Sep 1 1997 to Sep 1 2021.',
+        ds_init_timestamp: ' Updated 2 weeks ago',
         usability: 'Usability 1.0, 13KB',
         counter: '15 files (CSV)',
     },
     {
         id: 7,
         image: Image2,
-        title: '2021 Olympic in Toyko',
-        description: 'Data about Athletes, Teams, Coaches, Events.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: '2021 Olympic in Toyko',
+        ds_description: 'Data about Athletes, Teams, Coaches, Events.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 390KB',
         counter: '2 Tasks, 5 files (CSV)',
     },
     {
         id: 8,
         image: Image3,
-        title: 'Red Wine Quality',
-        description: 'Simple and clean practice dataset for regression',
-        updatedAt: ' Updated 13 hours ago',
+        ds_name: 'Red Wine Quality',
+        ds_description: 'Simple and clean practice dataset for regression',
+        ds_init_timestamp: ' Updated 13 hours ago',
         usability: 'Usability 1.0, 329KB',
         counter: '4 files (CSV)',
     },
     {
         id: 9,
         image: Image4,
-        title: 'Bitcoin tweets - 16M tweets',
-        description: 'Market Based Sentiment Assignment with Stock Data',
-        updatedAt: ' Updated 4 hours ago',
+        ds_name: 'Bitcoin tweets - 16M tweets',
+        ds_description: 'Market Based Sentiment Assignment with Stock Data',
+        ds_init_timestamp: ' Updated 4 hours ago',
         usability: 'Usability 5.0, 3KB',
         counter: '1 Tasks,1 files (CSV)',
     },
     {
         id: 10,
         image: Image5,
-        title: 'Google Play Store Apps',
-        description: 'Web scraped data of 10k Play Store apps.',
-        updatedAt: ' Updated 3 weeks ago',
+        ds_name: 'Google Play Store Apps',
+        ds_description: 'Web scraped data of 10k Play Store apps.',
+        ds_init_timestamp: ' Updated 3 weeks ago',
         usability: 'Usability 3.0, 514KB',
         counter: '7 tasks, 25 files (CSV)',
     },
+]
+
+const images = [
+    Image1,
+    Image2,
+    Image3,
+    Image4,
+    Image5,
 ]
 
 
@@ -164,7 +173,7 @@ const useStyles = makeStyles((theme) =>
             paddingLeft: 42.79,
             paddingRight: 24
         },
-        title: {
+        ds_name: {
             fontWeight: 700,
             fontSize: "36px"
         },
@@ -192,7 +201,6 @@ const useStyles = makeStyles((theme) =>
 );
 
 const datasetArr = ["Datasets", "Tasks", "Computer Sciences", "Classification", "Education", "NLP", "Computer Vision", "Data Visualization", "Data sandbox"];
-
 const Home = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
@@ -202,13 +210,28 @@ const Home = () => {
 
     const changeTabHandler = tab => {
         setactiveButton(tab);
-        setdata(selectedTabData)
+        if (tab === 0) {
+            getDatasets();
+        } else {
+            setdata(selectedTabData);
+        }
     }
+
+    const getDatasets = () => {
+        fetchRequest('datasets?page=1&per_page=10').then(res => {
+            setdata(res.data);
+        }).catch(err => {
+            console.log('err.message', err.message)
+        })
+    }
+
+
+
     return (
         <Fragment>
             <Header />
             <Box className={classes.innerContainer}>
-                <p className={classes.title}>Datasets</p>
+                <p className={classes.ds_name}>Datasets</p>
                 <p className={classes.heroLine}>Explore, analyze, and share quality data. Learn more about data types, creating, and collaborating.</p>
                 <Box position="relative">
                     <TextField
@@ -266,14 +289,16 @@ const Home = () => {
                             icon={TrendingIcon}
                             title="Trending Datasets"
                             data={data}
+                            images={images}
                         />
                     </section>
                     :
                     <section>
                         <DataList
                             icon={DatabaseIcon}
-                            title="182,309 Datasets"
+                            title={`${data?.length} Datasets`}
                             data={data}
+                            images={images}
                             icons
                         />
                     </section>
@@ -289,6 +314,7 @@ const Home = () => {
                                 icon={StarIcon}
                                 title="Popular Datasets"
                                 data={data}
+                                images={images}
                             />
                         </section>
                     </Box>

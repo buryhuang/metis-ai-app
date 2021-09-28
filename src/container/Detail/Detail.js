@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Box, makeStyles, createStyles, Button, TextField, InputAdornment, Divider, Grid, IconButton } from '@material-ui/core';
 import Header from '../../components/Header/Header';
 import { Search } from "@material-ui/icons";
@@ -7,6 +7,7 @@ import RefreshIcon from '../../assets/refresh.png';
 import LeftArrowIcon from '../../assets/leftArrow.png';
 import RightArrowIcon from '../../assets/rightArrow.png';
 import { useHistory } from 'react-router';
+import { fetchRequest } from '../../Utils/FetchRequest';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -45,6 +46,24 @@ const Detail = () => {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
+    const [leftSidebarData, setleftSidebarData] = useState(null);
+
+
+    useEffect(() => {
+        getSidebarData();
+    }, [])
+
+
+    const getSidebarData = () => {
+        fetchRequest('dataframes').then(res => {
+            console.log('res.data', res.data)
+        }).catch(err => {
+            console.log('err.message', err.message)
+        })
+    }
+
+
+
 
     return (
         <Fragment>
@@ -61,7 +80,7 @@ const Detail = () => {
                             <span style={{ fontWeight: 700 }}>SQL QUERY</span>
                         </Box>
                     </Grid>
-                    <Grid item sm={2}>
+                    {/* <Grid item sm={2}>
                         <span className={classes.actionBtn}>JUPYTER NOTEBOOK</span>
                     </Grid>
                     <Grid item sm={7}>
@@ -81,7 +100,7 @@ const Detail = () => {
                                 ),
                             }}
                         />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
             <Box mt={3} style={{ background: "#F3F5F9" }}>

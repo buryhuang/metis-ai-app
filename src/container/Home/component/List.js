@@ -78,7 +78,9 @@ const List = (props) => {
     const classes = useStyles();
     const [active, setactive] = useState(1);
     const [currentSort, setCurrentSort] = React.useState(sortData[0]);
-    const history = useHistory()
+    const history = useHistory();
+
+    console.log('props.data', props.data)
 
     return (
         <Box className={classes.root}>
@@ -103,7 +105,7 @@ const List = (props) => {
                             {(popupState) => (
                                 <div>
                                     <Grid {...bindTrigger(popupState)} justify="space-between" container alignItems="center" className={classes.sortDropdownContainer}>
-                                        <span style={{ marginRight: 10, fontSize: 14, fontWeight: 700, textTransform: "uppercase" }}>SOrt By</span>
+                                        <span style={{ marginRight: 10, fontSize: 14, fontWeight: 700, textTransform: "uppercase" }}>Sort By</span>
                                         <img src={SortIcon} />
                                     </Grid>
                                     <Popover
@@ -143,10 +145,12 @@ const List = (props) => {
                 <ListCard
                     data={props.data}
                     handleClick={() => history.push("/detail")}
+                    images={props.images}
                 />
                 :
                 <GridCard
                     data={props.data}
+                    images={props.images}
                     handleClick={() => history.push("/detail")}
                 />
             }

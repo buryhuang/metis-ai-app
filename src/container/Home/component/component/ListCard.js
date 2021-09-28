@@ -39,18 +39,18 @@ const useStyles = makeStyles((theme) =>
 const ListCard = (props) => {
     const classes = useStyles();
     return (
-        <Box className={clsx(classes.cardStyle)} onClick={props.handleClick}>
-            {props.data && props.data.map(d => (
-                <Card key={d.id} elevation={0} key={d.id} className={classes.cardContainer}>
+        <Box className={clsx(classes.cardStyle)}>
+            {props.data && props.data.map((d, i) => (
+                <Card key={d.id} elevation={0} key={d.id} className={classes.cardContainer} onClick={props.handleClick}>
                     <CardContent style={{ position: "relative", padding: 16 }}>
                         <Grid container justify="space-between" alignItems="center">
                             <Box>
                                 <Grid container >
-                                    <img src={d.image} alt={d.title} />
+                                    <img src={props.images[i]} alt={d.ds_name} />
                                     <Box p={2}>
-                                        <p className={classes.cardTitle}>{d.title}</p>
-                                        <p className={classes.cardDetail}>{d.description}</p>
-                                        <p className={classes.cardDetail}>{d.updatedAt} | {d.usability} | {d.counter}</p>
+                                        <p className={classes.cardTitle}>{d.ds_name}</p>
+                                        <p className={classes.cardDetail}>{d.ds_description}</p>
+                                        <p className={classes.cardDetail}>{d.ds_init_timestamp} | Usability {d.ds_usability}KB | {d.ds_files}  files (CSV)</p>
                                     </Box>
                                 </Grid>
                             </Box>

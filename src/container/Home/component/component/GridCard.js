@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import DownloadIcon from '../../../../assets/trending/download.png';
 import BookmarkIcon from '../../../../assets/trending/bookmark.png';
 import clsx from 'clsx';
+import moment from 'moment';
 const useStyles = makeStyles((theme) =>
     createStyles({
         cardStyle: {
@@ -18,8 +19,18 @@ const useStyles = makeStyles((theme) =>
         cardContainer: {
             marginLeft: 25,
             border: "2px solid #E2E8F0",
-            width: "18%",
-            marginBottom: 30
+            width: 245,
+            marginBottom: 30,
+            [theme.breakpoints.down('md')]: {
+                width: 300,
+                justifyContent: "center",
+                flexWrap: "nowrap"
+            },
+            [theme.breakpoints.down('sm')]: {
+                width: "100%",
+                justifyContent: "center",
+                flexWrap: "nowrap"
+            }
         },
         cardImage: {
             width: "100%",
@@ -42,12 +53,12 @@ const useStyles = makeStyles((theme) =>
 const GridCard = (props) => {
     const classes = useStyles();
     return (
-        <Box className={clsx(classes.cardStyle)} onClick={props.handleClick}>
+        <Box className={clsx(classes.cardStyle)} >
             {props.data && props.data.map((d, i) => (
-                <Card elevation={0} key={d.id} className={classes.cardContainer}>
+                <Card elevation={0} key={d.id} className={classes.cardContainer} onClick={props.handleClick}>
                     <Box position="relative">
                         <Fragment>
-                            <img src={d.image} alt={d.title} className={classes.cardImage} />
+                            <img src={props.images[i]} alt={d.ds_name} className={classes.cardImage} />
                             <Box position="absolute" top={15} right={20}>
                                 <img src={BookmarkIcon} alt="bookmark record" />
                             </Box>
@@ -58,11 +69,11 @@ const GridCard = (props) => {
                             <Box>
                                 <Grid container >
                                     <Box p={0}>
-                                        <p className={classes.cardTitle}>{d.title}</p>
-                                        <p className={classes.cardDetail}>{d.description}</p>
-                                        <p className={classes.cardDetail}>{d.updatedAt}</p>
-                                        <p className={classes.cardDetail}>{d.usability}</p>
-                                        <p className={classes.cardDetail}>{d.counter}</p>
+                                        <p className={classes.cardTitle}>{d.ds_name}</p>
+                                        <p className={classes.cardDetail}>{d.ds_description}</p>
+                                        <p className={classes.cardDetail}>{d.ds_init_timestamp}</p>
+                                        <p className={classes.cardDetail}>Usability {d.ds_usability}KB</p>
+                                        <p className={classes.cardDetail}>{d.ds_files}  files (CSV)</p>
                                     </Box>
                                 </Grid>
                             </Box>
