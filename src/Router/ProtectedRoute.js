@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 const ProtectedRoute = ({ component: Component, ...props }) => {
     const [loggedIn, setLoggedIn] = useState(null);
 

@@ -1,13 +1,13 @@
-import React, {SyntheticEvent} from 'react';
+import React, { SyntheticEvent } from 'react';
 
 // import './DataScientist.css';
-import Grid from '@material-ui/core/Grid';
-import {Button} from "@material-ui/core";
-import {DataGrid} from "@material-ui/data-grid";
+import Grid from '@mui/material/Grid';
+import { Button } from "@mui/material";
+import { DataGrid } from "@material-ui/data-grid";
 
 interface SqlQueryProps {
-        defaultQuery: string;
-        tableName: string;
+    defaultQuery: string;
+    tableName: string;
 }
 
 interface SqlQueryState {
@@ -21,7 +21,7 @@ interface SqlQueryState {
 class SqlQuery extends React.Component<
     SqlQueryProps,
     SqlQueryState
-    > {
+> {
     state: SqlQueryState;
 
     constructor(props: SqlQueryProps) {
@@ -58,13 +58,13 @@ class SqlQuery extends React.Component<
             })
             .then((data_obj) => {
                 this.setState({
-                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name']}}),
+                    resultColumns: data_obj['columns'].map((x: any) => { return { 'field': x['name'], 'headerName': x['name'] } }),
                     resultRows: data_obj['rows'],
                 })
             })
             .catch((error) => {
                 console.log(error, "Failed to load table data");
-                this.setState({errorMessage: "Failed to load table data"});
+                this.setState({ errorMessage: "Failed to load table data" });
             })
     }
 
@@ -76,7 +76,7 @@ class SqlQuery extends React.Component<
                         <p>Metis A.I. Select supports only the SELECT SQL command. Using the Data Analyst console, you can extract up to 40 MB of records from an object that is up to 128 MB in size. To work with larger files or more records, for more complex SQL queries, use Data Science console.</p>
                         <Button className="theme-query-button" onClick={this.handleRunQuery}>RUN Query</Button>
                     </div>
-                    <textarea onChange={this.handleQueryChange} className="theme-query-input-box" placeholder="Search for a data source" value={this.state.queryString}/>
+                    <textarea onChange={this.handleQueryChange} className="theme-query-input-box" placeholder="Search for a data source" value={this.state.queryString} />
                     <div className="theme-query-result" >
                         <DataGrid rows={this.state.resultRows} columns={this.state.resultColumns} pageSize={10} />
                     </div>

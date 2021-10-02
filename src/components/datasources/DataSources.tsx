@@ -1,16 +1,16 @@
 import React from 'react';
 
 import './DataSources.css';
-import {Button, Form, Modal, Nav} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {ProviderCsv} from "./providers/ProviderCsv";
-import { Search } from '@material-ui/icons';
+import { Button, Form, Modal, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { ProviderCsv } from "./providers/ProviderCsv";
+import { Search } from '@mui/icons-material';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@mui/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
-interface DataSourcesProps {}
+interface DataSourcesProps { }
 
 interface DataSourcesState {
     email: string;
@@ -22,7 +22,7 @@ interface DataSourcesState {
 class DataSources extends React.Component<
     DataSourcesProps,
     DataSourcesState
-    > {
+> {
     state: DataSourcesState;
 
     constructor(props: DataSourcesProps) {
@@ -50,7 +50,7 @@ class DataSources extends React.Component<
                         <Grid item xs>
                         </Grid>
                         <Grid item xs={6}>
-                            <input className="theme-input" placeholder="Search for a data source"/>&nbsp;<a><Search className="theme-button-icon" /></a>
+                            <input className="theme-input" placeholder="Search for a data source" />&nbsp;<a><Search className="theme-button-icon" /></a>
                         </Grid>
                         <Grid item xs>
                         </Grid>
@@ -82,7 +82,7 @@ class DataSources extends React.Component<
                     </Grid>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <hr className="theme-content-menu-divider"/>
+                            <hr className="theme-content-menu-divider" />
                         </Grid>
                     </Grid>
 
@@ -91,8 +91,8 @@ class DataSources extends React.Component<
                             <div className="datasources-box">
                                 <p><img className="datasources-img" src="https://images.ctfassets.net/3n0fku9d0jjr/1caC38kuhK8WusWKQGIeAO/6a35483a56960b0ff258e5c6acb9c0d7/csv-autofetch.svg" /></p>
                                 {/*<a >Link Account</a>*/}
-                                <a onClick={() => this.setState({showModal: true})}>Link Account</a>
-                                {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
+                                <a onClick={() => this.setState({ showModal: true })}>Link Account</a>
+                                {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}> <ProviderCsv onSave={() => this.setState({ showModal: false })} /> </Modal>}
                             </div>
                         </Grid>
                         <Grid item xs>
@@ -109,12 +109,12 @@ class DataSources extends React.Component<
                         </Grid>
                     </Grid>
                     <div className="row theme-row">
-                        <hr  style={{
+                        <hr style={{
                             color: '#000000',
                             backgroundColor: '#000000',
                             height: .5,
-                            borderColor : '#000000'
-                        }}/>
+                            borderColor: '#000000'
+                        }} />
                     </div>
                 </div>
             </div>

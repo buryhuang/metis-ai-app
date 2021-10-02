@@ -1,15 +1,15 @@
 import React from 'react';
-import { Box, makeStyles, createStyles, Grid, Button, Typography } from '@material-ui/core';
+import { Box, Grid, Button, Typography } from '@mui/material';
 import Logo from '../../assets/logo.png'
 import Signup from '../../Authentication/Signup/Signup';
+import { makeStyles } from '@mui/styles';
 
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        root: {
-            padding: "11px 24px",
-        },
-    })
+const useStyles = makeStyles((theme) => ({
+    root: {
+        padding: "11px 24px",
+    },
+})
 );
 
 const Header = () => {
@@ -25,7 +25,7 @@ const Header = () => {
     };
     return (
         <Box className={classes.root}>
-            <Grid container justify="space-between" alignItems="center">
+            <Grid container justifyContent="space-between" alignItems="center">
                 <Box>
                     <img src={Logo} alt="Logo" />
                 </Box>

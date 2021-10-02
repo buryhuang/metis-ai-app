@@ -5,12 +5,12 @@ import ProtectedRoute from './Router/ProtectedRoute';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Home from "./container/Home/Home";
-import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, createTheme } from '@mui/material';
 import Detail from './container/Detail/Detail';
 Amplify.configure(awsconfig);
 
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#4F4F4F"

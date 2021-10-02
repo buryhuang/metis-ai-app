@@ -1,12 +1,12 @@
-import React, {SyntheticEvent} from 'react';
+import React, { SyntheticEvent } from 'react';
 
 // import './DataScientist.css';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import Iframe from 'react-iframe'
 
 interface JupyterNotebookProps {
-        defaultQuery: string;
-        tableName: string;
+    defaultQuery: string;
+    tableName: string;
 }
 
 interface JupyterNotebookState {
@@ -20,7 +20,7 @@ interface JupyterNotebookState {
 class JupyterNotebook extends React.Component<
     JupyterNotebookProps,
     JupyterNotebookState
-    > {
+> {
     state: JupyterNotebookState;
 
     constructor(props: JupyterNotebookProps) {
@@ -57,13 +57,13 @@ class JupyterNotebook extends React.Component<
             })
             .then((data_obj) => {
                 this.setState({
-                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name']}}),
+                    resultColumns: data_obj['columns'].map((x: any) => { return { 'field': x['name'], 'headerName': x['name'] } }),
                     resultRows: data_obj['rows'],
                 })
             })
             .catch((error) => {
                 console.log(error, "Failed to load table data");
-                this.setState({errorMessage: "Failed to load table data"});
+                this.setState({ errorMessage: "Failed to load table data" });
             })
     }
 
@@ -73,12 +73,12 @@ class JupyterNotebook extends React.Component<
                 <Grid container>
                     <a>http://18.207.119.36:8888/</a>
                     <Iframe url="http://18.207.119.36:8888/"
-                            width="450px"
-                            height="450px"
-                            id="myId"
-                            className="myClassname"
-                            display="inline"
-                            position="relative"/>
+                        width="450px"
+                        height="450px"
+                        id="myId"
+                        className="myClassname"
+                        display="inline"
+                        position="relative" />
                 </Grid>
             </div>
         );

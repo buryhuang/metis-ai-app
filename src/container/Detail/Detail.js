@@ -1,43 +1,43 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Box, makeStyles, createStyles, Button, TextField, InputAdornment, Divider, Grid, IconButton } from '@material-ui/core';
+import { Box, Button, TextField, ListItemButton, Grid, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import Header from '../../components/Header/Header';
-import { Search } from "@material-ui/icons";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Search } from "@mui/icons-material";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import RefreshIcon from '../../assets/refresh.png';
 import LeftArrowIcon from '../../assets/leftArrow.png';
 import RightArrowIcon from '../../assets/rightArrow.png';
 import { useHistory } from 'react-router';
 import { fetchRequest } from '../../Utils/FetchRequest';
+import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        innerContainer: {
-            paddingTop: 32,
-            paddingLeft: 44.79,
-            width: "97%",
-            marginLeft: 39,
-            paddingRight: 24
-        },
-        runQueryStyle: {
-            background: "#FA7E11",
-            color: "white",
-            padding: "6px 40px",
-        },
-        actionBtn: {
-            fontWeight: 700,
+const useStyles = makeStyles((theme) => ({
+    innerContainer: {
+        paddingTop: 32,
+        paddingLeft: 44.79,
+        width: "97%",
+        marginLeft: 39,
+        paddingRight: 24
+    },
+    runQueryStyle: {
+        background: "#FA7E11",
+        color: "white",
+        padding: "6px 40px",
+    },
+    actionBtn: {
+        fontWeight: 700,
 
-        },
-        rootInput: {
-            border: "3px solid #718096",
-            boxShadow: " 0px 6px 4px rgba(222, 219, 219, 0.25)",
-            height: 35,
-            borderRadius: 5,
-        },
-        paginationCounterLabel: {
-            margin: "0px 7px"
-        }
+    },
+    rootInput: {
+        border: "3px solid #718096",
+        boxShadow: " 0px 6px 4px rgba(222, 219, 219, 0.25)",
+        height: 35,
+        borderRadius: 5,
+    },
+    paginationCounterLabel: {
+        margin: "0px 7px"
+    }
 
-    })
+})
 );
 
 
@@ -56,7 +56,8 @@ const Detail = () => {
 
     const getSidebarData = () => {
         fetchRequest('dataframes').then(res => {
-            console.log('res.data', res.data)
+            console.log('res.data', res.data);
+            setleftSidebarData(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
         })
@@ -109,7 +110,7 @@ const Detail = () => {
                         <Grid item sm={10}>
                             <p style={{ color: "#718096" }}>Metis A.I. Select supports only the SELECT SQL command. Using the Data Analyst console, you can extract up to 40 MB of records from an object that is up to 128 MB in size. To work with larger files or more records, for more complex SQL queries, use Data Science console.</p>
                         </Grid>
-                        <Grid item sm={2} style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-start" }}>
+                        <Grid item sm={2} style={{ display: "flex", flexDirection: "row", justify: "flex-end", alignItems: "flex-start" }}>
                             <Button className={classes.runQueryStyle} variant="contained">
                                 <span style={{ fontSize: 16, color: "white" }}>Run Query</span>
                             </Button>
@@ -120,10 +121,23 @@ const Detail = () => {
             <Box className={classes.innerContainer} style={{ paddingTop: 0 }}>
                 <Grid container>
                     <Grid item sm={3} style={{ marginTop: 30 }}>
-                        <Grid container justify="space-around">
+                        <Grid container justifyContent="space-around">
                             <span className={classes.actionBtn} style={{ color: "#828282" }}>RECENT TABLES</span>
-                            <img src={RefreshIcon} alt="refresh icon" />
+                            <IconButton>
+                                <img src={RefreshIcon} alt="refresh icon" />
+                            </IconButton>
                         </Grid>
+                        <Box>
+                            <List>
+                                {leftSidebarData?.length > 0 && leftSidebarData.map((d, i) => (
+                                    <ListItem key={i}>
+                                        <ListItemButton>
+                                            <Typography color="GrayText" primary="subtitle">{d.name}</Typography>
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Box>
                     </Grid>
                     <Grid item sm={9} style={{ height: "70vh" }}>
                         <TextField
@@ -139,12 +153,12 @@ const Detail = () => {
                                 },
                             }}
                         />
-                        <Grid container justify="space-between" alignItems="center" direction="column" style={{ height: "96%" }}>
+                        <Grid container justifyContent="space-between" alignItems="center" direction="column" style={{ height: "96%" }}>
                             <Box>
                                 <p>No Rows</p>
                             </Box>
                             <Box>
-                                <Grid container justify="center" alignItems="center" >
+                                <Grid container justifyContent="center" alignItems="center" >
                                     <img src={LeftArrowIcon} alt="left arrow" />
                                     <span className={classes.paginationCounterLabel}>1</span>
                                     <span className={classes.paginationCounterLabel}>2</span>

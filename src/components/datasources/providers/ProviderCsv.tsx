@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Button, Form} from "react-bootstrap";
-import Grid from "@material-ui/core/Grid";
+import { Button, Form } from "react-bootstrap";
+import Grid from "@mui/material/Grid";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { createDataSource } from '../../../graphql/mutations';
@@ -19,7 +19,7 @@ interface ProviderState {
 class ProviderCsv extends React.Component<
     ProviderCsvProps,
     ProviderState
-    > {
+> {
     state: ProviderState;
 
     constructor(props: ProviderCsvProps) {
@@ -50,7 +50,7 @@ class ProviderCsv extends React.Component<
     handleSave() {
         const dataSource = { user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f", table_name: this.state.tableName, data_source: JSON.stringify(this.state) };
 
-        API.graphql(graphqlOperation(createDataSource, {input: dataSource}))
+        API.graphql(graphqlOperation(createDataSource, { input: dataSource }))
         this.props.onSave();
     }
 
@@ -65,9 +65,9 @@ class ProviderCsv extends React.Component<
                     </Grid>
                     <Grid item xs={8}>
                         <p>Table Name:</p>
-                        <input className="theme-input-border" value={this.state.tableName} placeholder="Table name" onChange={this.handleTableNameChange}/>
+                        <input className="theme-input-border" value={this.state.tableName} placeholder="Table name" onChange={this.handleTableNameChange} />
                         <p>Data Url:</p>
-                        <input className="theme-input-border" value={this.state.dataUrl} placeholder="Link to the csv file" onChange={this.handleDataUrlChange}/>
+                        <input className="theme-input-border" value={this.state.dataUrl} placeholder="Link to the csv file" onChange={this.handleDataUrlChange} />
                     </Grid>
                     <Grid item xs>
                     </Grid>

@@ -1,20 +1,20 @@
 import React from 'react';
 
 import './Sidebar.css';
-import {Search} from '@material-ui/icons';
+import { Search } from '@mui/icons-material';
 
-import {Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem} from "@material-ui/core";
+import { Button, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listDataSources } from '../../../graphql/queries';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import {Modal} from "react-bootstrap";
-import {ProviderCsv} from "../../datasources/providers/ProviderCsv";
-import {updateDataSource} from "../../../graphql/mutations";
-import {DropzoneDialog} from 'material-ui-dropzone'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { Modal } from "react-bootstrap";
+import { ProviderCsv } from "../../datasources/providers/ProviderCsv";
+import { updateDataSource } from "../../../graphql/mutations";
+import { DropzoneDialog } from 'material-ui-dropzone'
 import axios from 'axios';
 
 interface SidebarProps {
@@ -37,7 +37,7 @@ interface SidebarState {
 class Sidebar extends React.Component<
     SidebarProps,
     SidebarState
-    > {
+> {
     state: SidebarState;
 
     constructor(props: SidebarProps) {
@@ -65,9 +65,9 @@ class Sidebar extends React.Component<
     }
 
     async loadJobList() {
-        const result: any = await API.graphql(graphqlOperation(listDataSources, {user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f"}));
+        const result: any = await API.graphql(graphqlOperation(listDataSources, { user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f" }));
         this.setState({
-            jobList: result.data.listDataSources.items.map((x: any) => {return x['table_name']})
+            jobList: result.data.listDataSources.items.map((x: any) => { return x['table_name'] })
         })
     }
 
@@ -84,28 +84,28 @@ class Sidebar extends React.Component<
             })
             .then((data_obj) => {
                 this.setState({
-                    resultColumns: data_obj['columns'].map((x: any) => {return {'field': x['name'], 'headerName': x['name']}}),
+                    resultColumns: data_obj['columns'].map((x: any) => { return { 'field': x['name'], 'headerName': x['name'] } }),
                     resultRows: data_obj['rows'],
-                    tableList: data_obj['rows'].map((x: any) => {return x['schemaname']}),
+                    tableList: data_obj['rows'].map((x: any) => { return x['schemaname'] }),
                 })
             })
             .catch((error) => {
                 console.log(error, "Failed to load table data");
-                this.setState({errorMessage: error});
+                this.setState({ errorMessage: error });
             })
     }
 
     handleRefreshTable(tableName: string) {
         const dataSource = { user_id: "0dffa840-c3cf-459c-8052-1e3877037e5f", table_name: tableName, refresh_request: Date.now() };
-        API.graphql(graphqlOperation(updateDataSource, {input: dataSource}))
+        API.graphql(graphqlOperation(updateDataSource, { input: dataSource }))
     }
 
     handleMenuClick(event: React.MouseEvent<HTMLButtonElement>) {
-        this.setState({menuButton: event.currentTarget});
+        this.setState({ menuButton: event.currentTarget });
     };
 
     handleMenuClose() {
-        this.setState({menuButton: null});
+        this.setState({ menuButton: null });
     }
 
     async handleUploadFilesSave(files: File[], event: React.SyntheticEvent) {
@@ -120,29 +120,29 @@ class Sidebar extends React.Component<
         );
         await axios.post("https://hdhfcsdukf.execute-api.us-east-1.amazonaws.com/dev/upload",
             formData,
-            { headers: {'Content-Type':'multipart/form-data'}});
+            { headers: { 'Content-Type': 'multipart/form-data' } });
 
-        this.setState({openFileUploadDialog:false});
+        this.setState({ openFileUploadDialog: false });
     }
 
     handleUploadFilesClose() {
-        this.setState({openFileUploadDialog: false});
+        this.setState({ openFileUploadDialog: false });
     }
 
     render() {
         return (
             <div className="theme-sidebar">
-                <input className="theme-sidebar-input" placeholder="Search for a data source"/>&nbsp;<a><Search className="theme-button-icon" /></a>
+                <input className="theme-sidebar-input" placeholder="Search for a data source" />&nbsp;<a><Search className="theme-button-icon" /></a>
                 <div />
                 <Grid container>
                     <Grid item xs={8}></Grid>
                     <Grid item xs={4}>
-                        <Button onClick={this.handleMenuClick.bind(this)}><AddCircleIcon className="theme-button"/></Button>
+                        <Button onClick={this.handleMenuClick.bind(this)}><AddCircleIcon className="theme-button" /></Button>
                         <Menu anchorEl={this.state.menuButton} open={Boolean(this.state.menuButton)} onClose={this.handleMenuClose.bind(this)}>
-                            <MenuItem onClick={()=> this.setState({showModal: true, menuButton: null})}>Data Source From Url</MenuItem>
-                            <MenuItem onClick={()=> this.setState({openFileUploadDialog: true, menuButton: null})}>Upload Files</MenuItem>
+                            <MenuItem onClick={() => this.setState({ showModal: true, menuButton: null })}>Data Source From Url</MenuItem>
+                            <MenuItem onClick={() => this.setState({ openFileUploadDialog: true, menuButton: null })}>Upload Files</MenuItem>
                         </Menu>
-                        {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({showModal: false})}> <ProviderCsv onSave={() => this.setState({showModal: false})} /> </Modal>}
+                        {this.state.showModal && <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })}> <ProviderCsv onSave={() => this.setState({ showModal: false })} /> </Modal>}
                         <DropzoneDialog
                             open={this.state.openFileUploadDialog}
                             onSave={this.handleUploadFilesSave.bind(this)}
@@ -161,7 +161,7 @@ class Sidebar extends React.Component<
                         <ListItem className="theme-sidebar-menu-item" button key={text} onClick={() => this.props.handleListClick(text)}>
                             <ListItemIcon>{this.state.tableList.indexOf(text) == -1 ? <MoreHorizIcon /> : <CheckCircleIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
-                            <Button onClick={() => {this.handleRefreshTable(text)}}><RefreshIcon/></Button>
+                            <Button onClick={() => { this.handleRefreshTable(text) }}><RefreshIcon /></Button>
                         </ListItem>
                     ))}
                 </List>

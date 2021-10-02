@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { Box, makeStyles, createStyles, Button, TextField, InputAdornment, Divider, Grid } from '@material-ui/core';
+import { Box, Button, TextField, InputAdornment, Divider, Grid } from '@mui/material';
 import Header from '../../components/Header/Header';
-import { Search, Close, } from "@material-ui/icons";
+import { Search, Close, } from "@mui/icons-material";
 import DataList from './component/List';
 import TrendingIcon from '../../assets/trending.png';
 import FilterIcon from '../../assets/filter.png';
@@ -12,7 +12,7 @@ import Image2 from '../../assets/trending/2.png';
 import Image3 from '../../assets/trending/3.png';
 import Image4 from '../../assets/trending/4.png';
 import Image5 from '../../assets/trending/5.png';
-import { useHistory } from 'react-router';
+import { makeStyles } from '@mui/styles';
 import { fetchRequest } from '../../Utils/FetchRequest';
 
 const popularData = [
@@ -166,38 +166,37 @@ const images = [
 
 
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        innerContainer: {
-            paddingTop: 32,
-            paddingLeft: 42.79,
-            paddingRight: 24
-        },
-        ds_name: {
-            fontWeight: 700,
-            fontSize: "36px"
-        },
-        heroLine: {
-            fontSize: 15,
-            color: "#718096"
-        },
-        inputRoot: {
-            border: "2px solid #E2E8F0"
-        },
-        filterButton: {
-            border: "2px solid #E2E8F0",
-            borderRadius: 5,
-            padding: "10px 12px",
-            marginTop: 15,
-            textTransform: "capitalize",
-            minWidth: 102,
-            outline: "none"
-        },
-        filterButtonLabel: {
-            fontSize: 14,
-            color: "#9A9999"
-        }
-    })
+const useStyles = makeStyles((theme) => ({
+    innerContainer: {
+        paddingTop: 32,
+        paddingLeft: 42.79,
+        paddingRight: 24
+    },
+    ds_name: {
+        fontWeight: 700,
+        fontSize: "36px"
+    },
+    heroLine: {
+        fontSize: 15,
+        color: "#718096"
+    },
+    inputRoot: {
+        border: "2px solid #E2E8F0"
+    },
+    filterButton: {
+        border: "2px solid #E2E8F0",
+        borderRadius: 5,
+        padding: "10px 12px",
+        marginTop: 15,
+        textTransform: "capitalize",
+        minWidth: 102,
+        outline: "none"
+    },
+    filterButtonLabel: {
+        fontSize: 14,
+        color: "#9A9999"
+    }
+})
 );
 
 const datasetArr = ["Datasets", "Tasks", "Computer Sciences", "Classification", "Education", "NLP", "Computer Vision", "Data Visualization", "Data sandbox"];
@@ -206,7 +205,8 @@ const Home = () => {
     const [search, setSearch] = useState('');
     const [activeButton, setactiveButton] = useState(-1);
     const [data, setdata] = useState(popularData);
-
+    const [page, setpage] = useState(1);
+    const [perPage, setperPage] = useState(10);
 
     const changeTabHandler = tab => {
         setactiveButton(tab);
@@ -218,7 +218,7 @@ const Home = () => {
     }
 
     const getDatasets = () => {
-        fetchRequest('datasets?page=1&per_page=10').then(res => {
+        fetchRequest(`datasets?page=${page}&per_page=${perPage}`).then(res => {
             setdata(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
@@ -262,7 +262,7 @@ const Home = () => {
                 <Box>
                     {activeButton === -1 ?
                         datasetArr.map((d, i) => (
-                            <Button onClick={() => changeTabHandler(i)} className={classes.filterButton}
+                            <Button key={i} onClick={() => changeTabHandler(i)} className={classes.filterButton}
                                 style={{ marginLeft: i > 0 ? 13 : 0 }} variant="outlined">
                                 <span className={classes.filterButtonLabel}>{d}</span>
                             </Button>
@@ -296,8 +296,8 @@ const Home = () => {
                     <section>
                         <DataList
                             icon={DatabaseIcon}
-                            title={`${data?.length} Datasets`}
-                            data={data}
+                            title={`${data?.total_items || 0} Datasets`}
+                            data={data?.items}
                             images={images}
                             icons
                         />
@@ -313,7 +313,7 @@ const Home = () => {
                             <DataList
                                 icon={StarIcon}
                                 title="Popular Datasets"
-                                data={data}
+                                data={data?.items}
                                 images={images}
                             />
                         </section>

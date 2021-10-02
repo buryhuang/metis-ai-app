@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Slide from '@material-ui/core/Slide';
-import { Box, IconButton, createStyles, makeStyles, TextField, Typography, Grid } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import Slide from '@mui/material/Slide';
+import { Box, IconButton, TextField, Typography, Grid } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
+
 import MessageIcon from '../../assets/message.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -13,35 +15,34 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        paperRoot: {
-            width: 600,
-            height: 743
-        },
-        title: {
-            fontSize: 18,
-            fontWeight: 700,
-            color: "#828282"
-        },
-        inputLabel: {
-            fontSize: 16,
-            fontWeight: 400,
-            color: "#718096",
-            marginTop: 10
-        },
-        actionBtn: {
-            padding: "10px 30px"
-        },
-        thankMessage: {
-            fontWeight: 700,
-            fontSize: 18,
-            marginTop: 20,
-            lineHeight: 2.2,
-            textAlign: "center",
-            color: "#828282"
-        }
-    })
+const useStyles = makeStyles((theme) => ({
+    paperRoot: {
+        width: 600,
+        height: 743
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 700,
+        color: "#828282"
+    },
+    inputLabel: {
+        fontSize: 16,
+        fontWeight: 400,
+        color: "#718096",
+        marginTop: 10
+    },
+    actionBtn: {
+        padding: "10px 30px"
+    },
+    thankMessage: {
+        fontWeight: 700,
+        fontSize: 18,
+        marginTop: 20,
+        lineHeight: 2.2,
+        textAlign: "center",
+        color: "#828282"
+    }
+})
 );
 
 export default function Signup({ open, handleClose }) {
@@ -74,7 +75,7 @@ export default function Signup({ open, handleClose }) {
                             </IconButton>
                         </Box>
                         {thankYou ?
-                            <Grid container direction="column" justify="center" alignItems="center" style={{ height: "100%" }}>
+                            <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: "100%" }}>
                                 <img src={MessageIcon} alt="message Icon" />
                                 <p className={classes.thankMessage}>Thank You for Signup!
                                     <br></br>

@@ -1,56 +1,55 @@
 import React, { useState } from 'react';
-import { Box, makeStyles, createStyles, Button, Grid, List as SortList } from '@material-ui/core';
-import Popover from '@material-ui/core/Popover';
+import { Box, Button, Grid, List as SortList } from '@mui/material';
+import Popover from '@mui/material/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import ListItem from '@material-ui/core/ListItem';
-
+import ListItem from '@mui/material/ListItem';
+import { makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router';
 import GridIcon from '../../../assets/grid.png';
 import ListIcon from '../../../assets/list.png';
 import SortIcon from '../../../assets/sort.png';
 import ListCard from './component/ListCard';
 import GridCard from './component/GridCard';
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        root: {
-            paddingTop: 32,
-        },
-        titleContainer: {
-            marginTop: 44,
-            marginBottom: 44,
-        },
-        titleIcon: {
-            width: 25.52,
-            height: 25.52,
-            marginRight: 20.74
-        },
-        title: {
-            fontWeight: 700,
-            color: "#000",
-            fontSize: 24,
-            margin: 0
-        },
+const useStyles = makeStyles((theme) => ({
+    root: {
+        paddingTop: 32,
+    },
+    titleContainer: {
+        marginTop: 44,
+        marginBottom: 44,
+    },
+    titleIcon: {
+        width: 25.52,
+        height: 25.52,
+        marginRight: 20.74
+    },
+    title: {
+        fontWeight: 700,
+        color: "#000",
+        fontSize: 24,
+        margin: 0
+    },
 
-        sortDropdownContainer: {
-            background: "#FFFFFF",
-            boxShadow: "0px 4px 10px #00000030",
-            cursor: "pointer",
-            width: 157,
-            borderRadius: "10px",
-            border: "1px solid #FFF",
-            padding: "13px 20px"
-        },
-        listItemStyle: {
-            // padding: "5px 10px",
-        },
-        listItemLabel: {
-            fontSize: 16,
-            letterSpacing: 0.88,
-            textTransform: "capitalize",
-            color: theme.palette.primary.main
-        }
+    sortDropdownContainer: {
+        background: "#FFFFFF",
+        boxShadow: "0px 4px 10px #00000030",
+        cursor: "pointer",
+        width: 157,
+        borderRadius: "10px",
+        border: "1px solid #FFF",
+        padding: "13px 20px"
+    },
+    listItemStyle: {
+        // padding: "5px 10px",
+    },
+    listItemLabel: {
+        fontSize: 16,
+        letterSpacing: 0.88,
+        textTransform: "capitalize",
+        color: theme.palette.primary.main
+    }
 
-    })
+})
 );
 
 const sortData = [
@@ -85,7 +84,7 @@ const List = (props) => {
     return (
         <Box className={classes.root}>
             <Box className={classes.titleContainer}>
-                <Grid container alignItems="baseline" justify="space-between">
+                <Grid container alignItems="baseline" justifyContent="space-between">
                     <Box>
                         <Grid container alignItems="center">
                             <img src={props.icon} alt={props.title} className={classes.titleIcon} />
@@ -104,7 +103,7 @@ const List = (props) => {
                         <PopupState variant="popover" popupId="demo-popup-popover">
                             {(popupState) => (
                                 <div>
-                                    <Grid {...bindTrigger(popupState)} justify="space-between" container alignItems="center" className={classes.sortDropdownContainer}>
+                                    <Grid {...bindTrigger(popupState)} justifyContent="space-between" container alignItems="center" className={classes.sortDropdownContainer}>
                                         <span style={{ marginRight: 10, fontSize: 14, fontWeight: 700, textTransform: "uppercase" }}>Sort By</span>
                                         <img src={SortIcon} />
                                     </Grid>

@@ -1,12 +1,12 @@
-import React, {SyntheticEvent} from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import './DataScientist.css';
-import Grid from '@material-ui/core/Grid';
-import {SqlQuery} from "./panels/SqlQuery";
-import {Sidebar} from "../shared/sidebar/Sidebar";
-import {JupyterNotebook} from "./panels/JupyterNotebook";
+import Grid from '@mui/material/Grid';
+import { SqlQuery } from "./panels/SqlQuery";
+import { Sidebar } from "../shared/sidebar/Sidebar";
+import { JupyterNotebook } from "./panels/JupyterNotebook";
 
-interface DataScientistProps {}
+interface DataScientistProps { }
 
 interface DataScientistState {
     email: string;
@@ -21,7 +21,7 @@ interface DataScientistState {
 class DataScientist extends React.Component<
     DataScientistProps,
     DataScientistState
-    > {
+> {
     state: DataScientistState;
 
     constructor(props: DataScientistProps) {
@@ -63,9 +63,9 @@ class DataScientist extends React.Component<
         const { currentHeaderMenu } = this.state;
         switch (currentHeaderMenu) {
             case 0:
-                return <SqlQuery key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery}/>;
+                return <SqlQuery key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery} />;
             case 1:
-                return <JupyterNotebook key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery}/>;
+                return <JupyterNotebook key={this.state.tableName} tableName={this.state.tableName} defaultQuery={this.state.defaultQuery} />;
             // case 2:
             //     return <DataScientist />;
         }
@@ -74,7 +74,7 @@ class DataScientist extends React.Component<
     handleSidebarListClick(tableName: string) {
         this.setState({
             tableName: tableName,
-            defaultQuery: 'SELECT * FROM datastore.' + tableName +' LIMIT 15'
+            defaultQuery: 'SELECT * FROM datastore.' + tableName + ' LIMIT 15'
         })
     }
 
@@ -100,7 +100,7 @@ class DataScientist extends React.Component<
                                 {/*    this.handleMenuClick(2)*/}
                                 {/*}>R ANALYSIS</a>*/}
                             </Grid>
-                            { this.renderContentFrame() }
+                            {this.renderContentFrame()}
                         </Grid>
                         <Grid item xs>
                         </Grid>

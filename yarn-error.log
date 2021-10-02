@@ -34,7 +34,7 @@ npm manifest:
     "dependencies": {
       "@material-ui/core": "^4.11.0",
       "@material-ui/data-grid": "^4.0.0-alpha.10",
-      "@material-ui/icons": "^4.9.1",
+      "@mui/icons-material": "^4.9.1",
       "@testing-library/jest-dom": "^5.11.4",
       "@testing-library/react": "^11.1.0",
       "@testing-library/user-event": "^12.1.10",
@@ -2792,9 +2792,9 @@ Lockfile:
       reselect "^4.0.0"
       tslib "^2.0.0"
   
-  "@material-ui/icons@^4.9.1":
+  "@mui/icons-material@^4.9.1":
     version "4.9.1"
-    resolved "https://registry.npmjs.org/@material-ui/icons/-/icons-4.9.1.tgz"
+    resolved "https://registry.npmjs.org/@mui/icons-material/-/icons-4.9.1.tgz"
     integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
     dependencies:
       "@babel/runtime" "^7.4.4"
