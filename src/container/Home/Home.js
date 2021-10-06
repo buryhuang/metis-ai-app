@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Box, Button, TextField, InputAdornment, Divider, Grid } from '@mui/material';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Box, Button, InputAdornment, Divider, Grid, TextField } from '@mui/material';
 import Header from '../../components/Header/Header';
 import { Search, Close, } from "@mui/icons-material";
 import DataList from './component/List';
@@ -204,17 +204,17 @@ const Home = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
     const [activeButton, setactiveButton] = useState(-1);
-    const [data, setdata] = useState(popularData);
+    const [data, setdata] = useState(null);
     const [page, setpage] = useState(1);
     const [perPage, setperPage] = useState(10);
 
     const changeTabHandler = tab => {
         setactiveButton(tab);
-        if (tab === 0) {
-            getDatasets();
-        } else {
-            setdata(selectedTabData);
-        }
+        // // if (tab === 0) {
+        // getDatasets();
+        // // } else {
+        // //     setdata(selectedTabData);
+        // // }
     }
 
     const getDatasets = () => {
@@ -224,6 +224,10 @@ const Home = () => {
             console.log('err.message', err.message)
         })
     }
+
+    useEffect(() => {
+        getDatasets();
+    }, [])
 
 
 
@@ -238,6 +242,8 @@ const Home = () => {
                         fullWidth
                         value={search}
                         style={{ position: "relative" }}
+                        id="search-bar-for-data-soruces"
+                        label="Search for data sources"
                         placeholder="Search for data sources"
                         variant="outlined"
                         onChange={e => setSearch(e.target.value)}
@@ -277,7 +283,6 @@ const Home = () => {
                             <Box position="absolute" top="9px" right="8px">
                                 <Close color="primary" fontSize="medium" onClick={() => {
                                     setactiveButton(-1);
-                                    setdata(popularData)
                                 }} />
                             </Box>
                         </Button>
@@ -288,8 +293,9 @@ const Home = () => {
                         <DataList
                             icon={TrendingIcon}
                             title="Trending Datasets"
-                            data={data}
+                            data={data?.items}
                             images={images}
+                            activeButton={activeButton}
                         />
                     </section>
                     :
@@ -299,6 +305,7 @@ const Home = () => {
                             title={`${data?.total_items || 0} Datasets`}
                             data={data?.items}
                             images={images}
+                            activeButton={activeButton}
                             icons
                         />
                     </section>
@@ -315,6 +322,7 @@ const Home = () => {
                                 title="Popular Datasets"
                                 data={data?.items}
                                 images={images}
+                                activeButton={activeButton}
                             />
                         </section>
                     </Box>

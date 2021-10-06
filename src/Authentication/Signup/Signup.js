@@ -90,6 +90,7 @@ export default function Signup({ open, handleClose }) {
                                         <TextField
                                             fullWidth
                                             value={name}
+                                            label=" "
                                             type="text"
                                             variant="outlined"
                                             onChange={e => setname(e.target.value)}
@@ -101,7 +102,7 @@ export default function Signup({ open, handleClose }) {
                                             fullWidth
                                             value={email}
                                             type="email"
-                                            required
+                                            label=" "
                                             variant="outlined"
                                             onChange={e => setemail(e.target.value)}
                                         />
@@ -111,6 +112,7 @@ export default function Signup({ open, handleClose }) {
                                         <TextField
                                             fullWidth
                                             value={request}
+                                            label=" "
                                             multiline
                                             rows={5}
                                             variant="outlined"

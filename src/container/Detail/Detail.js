@@ -144,7 +144,7 @@ const Detail = () => {
                             fullWidth
                             value={query}
                             placeholder="SELECT * FROM "
-
+                            label=" "
                             variant="outlined"
                             onChange={e => setQuery(e.target.value)}
                             InputProps={{

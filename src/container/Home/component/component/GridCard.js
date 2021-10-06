@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             width: 300,
             justify: "center",
-            flexWrap: "nowrap"
+            flexWrap: "nowrap",
+            marginLeft: 0,
         },
         [theme.breakpoints.down('sm')]: {
             width: "100%",

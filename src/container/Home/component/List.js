@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Button, Grid, List as SortList } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, CircularProgress, Grid, List as SortList } from '@mui/material';
 import Popover from '@mui/material/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import ListItem from '@mui/material/ListItem';
@@ -79,7 +79,14 @@ const List = (props) => {
     const [currentSort, setCurrentSort] = React.useState(sortData[0]);
     const history = useHistory();
 
-    console.log('props.data', props.data)
+
+
+    useEffect(() => {
+        if (props.activeButton === -1) {
+            setactive(1)
+        }
+    }, [props.activeButton])
+
 
     return (
         <Box className={classes.root}>
@@ -100,7 +107,7 @@ const List = (props) => {
                     {active === 1 ?
                         <Button >See All</Button>
                         :
-                        <PopupState variant="popover" popupId="demo-popup-popover">
+                        <PopupState variant="popover" popupId="sort-popup-popover">
                             {(popupState) => (
                                 <div>
                                     <Grid {...bindTrigger(popupState)} justifyContent="space-between" container alignItems="center" className={classes.sortDropdownContainer}>
@@ -122,6 +129,7 @@ const List = (props) => {
                                             <SortList component="nav">
                                                 {sortData.map(sort => (
                                                     <ListItem
+                                                        key={sort}
                                                         onClick={() => setCurrentSort(sort)}
                                                         className={classes.listItemStyle}
                                                         button
@@ -140,18 +148,19 @@ const List = (props) => {
                     }
                 </Grid>
             </Box>
-            {active === 0 ?
-                <ListCard
-                    data={props.data}
-                    handleClick={() => history.push("/detail")}
-                    images={props.images}
-                />
+            {props.data && props.data.length > 0 ?
+                active === 0 ?
+                    <ListCard
+                        data={props.data}
+                        handleClick={() => history.push("/detail")}
+                    />
+                    :
+                    <GridCard
+                        data={props.data}
+                        handleClick={() => history.push("/detail")}
+                    />
                 :
-                <GridCard
-                    data={props.data}
-                    images={props.images}
-                    handleClick={() => history.push("/detail")}
-                />
+                <CircularProgress />
             }
         </Box >
     );

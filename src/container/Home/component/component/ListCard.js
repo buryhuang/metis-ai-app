@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 30
     },
     cardImage: {
-        width: "100%",
-        position: "relative"
+        width: 400,
+        position: "relative",
+        [theme.breakpoints.down('md')]: {
+            width: "100%",
+        }
     },
     cardTitle: {
         fontSize: 14,
@@ -44,8 +47,8 @@ const ListCard = (props) => {
                     <CardContent style={{ position: "relative", padding: 16 }}>
                         <Grid container justifyContent="space-between" alignItems="center">
                             <Box>
-                                <Grid container >
-                                    <img src={props.images[i]} alt={d.name} />
+                                <Grid container>
+                                    <img src={d.image_url} alt={d.name} className={classes.cardImage} />
                                     <Box p={2}>
                                         <p className={classes.cardTitle}>{d.name}</p>
                                         <p className={classes.cardDetail}>{d.description}</p>
@@ -54,7 +57,7 @@ const ListCard = (props) => {
                                 </Grid>
                             </Box>
                             <Box mr={5}>
-                                <Grid container >
+                                <Grid container>
                                     <img src={DownloadIcon} alt="download record" style={{ marginRight: 33 }} />
                                     <img src={BookmarkBlackIcon} alt="bookmark record" />
                                 </Grid>
