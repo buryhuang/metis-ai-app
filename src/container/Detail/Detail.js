@@ -1,22 +1,21 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Box, Button, TextField, ListItemButton, Grid, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Table, Typography, CircularProgress, Button, TableContainer, TableBody, TableHead, TableRow, TableCell } from '@mui/material';
 import Header from '../../components/Header/Header';
-import { Search } from "@mui/icons-material";
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import DownloadIcon from '../../assets/trending/download.png';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RefreshIcon from '../../assets/refresh.png';
 import LeftArrowIcon from '../../assets/leftArrow.png';
 import RightArrowIcon from '../../assets/rightArrow.png';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { fetchRequest } from '../../Utils/FetchRequest';
 import { makeStyles } from '@mui/styles';
+import Column from './component/Column';
 
 const useStyles = makeStyles((theme) => ({
     innerContainer: {
-        paddingTop: 32,
-        paddingLeft: 44.79,
-        width: "97%",
-        marginLeft: 39,
-        paddingRight: 24
+        minWidth: "97%",
+        margin: "auto",
     },
     runQueryStyle: {
         background: "#FA7E11",
@@ -33,6 +32,13 @@ const useStyles = makeStyles((theme) => ({
         height: 35,
         borderRadius: 5,
     },
+    table: {
+        border: "1px solid #C2CEDB",
+        overflow: "auto"
+    },
+    cellStyle: {
+        border: "1px solid #C2CEDB",
+    },
     paginationCounterLabel: {
         margin: "0px 7px"
     }
@@ -46,22 +52,47 @@ const Detail = () => {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [query, setQuery] = useState('');
+    const [data, setdata] = useState(null);
     const [leftSidebarData, setleftSidebarData] = useState(null);
+    const id = useQuery().get('id');
 
+    const getDatasetByID = () => {
+        fetchRequest(`datasets/${id}`).then(res => {
+            console.log('res.data', res.data)
+            setdata(res.data);
+        }).catch(err => {
+            console.log('err.message', err.message)
+        })
+    }
+
+    useEffect(() => {
+        getDatasetByID();
+    }, [id])
 
     useEffect(() => {
         getSidebarData();
-    }, [])
+    }, []);
+
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
 
 
     const getSidebarData = () => {
         fetchRequest('dataframes').then(res => {
-            console.log('res.data', res.data);
             setleftSidebarData(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
         })
     }
+
+    const labels = [
+        "Schema",
+        "Owner",
+        "Row",
+        "Sizes",
+        "Comment"
+    ]
 
 
 
@@ -69,107 +100,93 @@ const Detail = () => {
     return (
         <Fragment>
             <Header />
-            <Box className={classes.innerContainer}>
-                <Grid container alignItems="center">
-                    <Grid item sm={1}>
-                        <IconButton onClick={() => history.goBack()}>
-                            <KeyboardBackspaceIcon />
-                        </IconButton>
-                    </Grid>
-                    <Grid item sm={2}>
-                        <Box>
-                            <span style={{ fontWeight: 700 }}>SQL QUERY</span>
-                        </Box>
-                    </Grid>
-                    {/* <Grid item sm={2}>
-                        <span className={classes.actionBtn}>JUPYTER NOTEBOOK</span>
-                    </Grid>
-                    <Grid item sm={7}>
-                        <TextField
-                            fullWidth
-                            margin="dense"
-                            value={search}
-                            placeholder="Search for data sources"
-                            variant="outlined"
-                            onChange={e => setSearch(e.target.value)}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <Search style={{ color: "#9A9999", fontSize: 27, marginRight: 5 }} />
-                                    </InputAdornment>
-
-                                ),
-                            }}
-                        />
-                    </Grid> */}
+            <Box className={classes.innerContainer} >
+                <Grid pl={5} container alignItems="center" sx={{ mt: 3, background: "#FFF" }}>
+                    <IconButton sx={{ px: 0 }} onClick={() => history.goBack()}>
+                        <ArrowBackIcon fontSize="large" />
+                    </IconButton>
+                    <Box sx={{ fontWeight: 700, fontSize: 15, ml: 3 }}>SQL QUERY</Box>
                 </Grid>
-            </Box>
-            <Box mt={3} style={{ background: "#F3F5F9" }}>
-                <Box className={classes.innerContainer} >
-                    <Grid container>
-                        <Grid item sm={10}>
-                            <p style={{ color: "#718096" }}>Metis A.I. Select supports only the SELECT SQL command. Using the Data Analyst console, you can extract up to 40 MB of records from an object that is up to 128 MB in size. To work with larger files or more records, for more complex SQL queries, use Data Science console.</p>
+                <Box pl={5} py={2} mr={3} sx={{ background: "#FFF", border: "2px solid rgba(35, 61, 145, 0.2)" }} height={108}>
+                    {!data ?
+                        <Grid container alignItems="center" justifyContent="center" sx={{ width: "100wh" }}>
+                            < CircularProgress size={17} />
                         </Grid>
-                        <Grid item sm={2} style={{ display: "flex", flexDirection: "row", justify: "flex-end", alignItems: "flex-start" }}>
-                            <Button className={classes.runQueryStyle} variant="contained">
-                                <span style={{ fontSize: 16, color: "white" }}>Run Query</span>
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Box>
-            <Box className={classes.innerContainer} style={{ paddingTop: 0 }}>
-                <Grid container>
-                    <Grid item sm={3} style={{ marginTop: 30 }}>
-                        <Grid container justifyContent="space-around">
-                            <span className={classes.actionBtn} style={{ color: "#828282" }}>RECENT TABLES</span>
-                            <IconButton>
-                                <img src={RefreshIcon} alt="refresh icon" />
-                            </IconButton>
-                        </Grid>
-                        <Box>
-                            <List>
-                                {leftSidebarData?.length > 0 && leftSidebarData.map((d, i) => (
-                                    <ListItem key={i}>
-                                        <ListItemButton>
-                                            <Typography color="GrayText" primary="subtitle">{d.name}</Typography>
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </Box>
-                    </Grid>
-                    <Grid item sm={9} style={{ height: "70vh" }}>
-                        <TextField
-                            fullWidth
-                            value={query}
-                            placeholder="SELECT * FROM "
-                            label=" "
-                            variant="outlined"
-                            onChange={e => setQuery(e.target.value)}
-                            InputProps={{
-                                classes: {
-                                    input: classes.rootInput
-                                },
-                            }}
-                        />
-                        <Grid container justifyContent="space-between" alignItems="center" direction="column" style={{ height: "96%" }}>
+                        :
+                        <Grid mt={2.5} container alignItems="center" justifyContent="space-between">
                             <Box>
-                                <p>No Rows</p>
+                                <Typography sx={{ fontWeight: 500, fontSize: 15 }}>{data.name} (13KB)</Typography>
+                                <Typography sx={{ fontSize: 12 }}>{data.description}</Typography>
                             </Box>
                             <Box>
-                                <Grid container justifyContent="center" alignItems="center" >
-                                    <img src={LeftArrowIcon} alt="left arrow" />
-                                    <span className={classes.paginationCounterLabel}>1</span>
-                                    <span className={classes.paginationCounterLabel}>2</span>
-                                    <span className={classes.paginationCounterLabel}>3</span>
-                                    <span className={classes.paginationCounterLabel}>4</span>
-                                    <span className={classes.paginationCounterLabel}>...</span>
-                                    <span className={classes.paginationCounterLabel}>10</span>
-                                    <img src={RightArrowIcon} alt="left arrow" />
+                                <Grid container alignItems="center">
+                                    <Typography sx={{ fontSize: 11 }}><Typography component="span" sx={{ fontSize: 11, textDecoration: "underline" }}> Updated 3 hours ago</Typography> |  Usability 1.0, 13KB  |  1 Task, 15 files (CSV)</Typography>
+                                    <Box ml={4}>
+                                        <Grid container>
+                                            <img src={DownloadIcon} alt="download record" style={{ marginRight: 25, height: 20, marginTop: 6 }} />
+                                            <MoreHorizIcon fontSize="large" />
+                                        </Grid>
+                                    </Box>
                                 </Grid>
                             </Box>
                         </Grid>
+                    }
+                </Box>
+                <Grid container>
+                    <Grid item sm={2} pl={5} pt={4.5} sx={{ background: "#FFF", }}>
+                        <Grid container justifyContent="space-between">
+                            <Box>
+                                <Typography sx={{ color: "#828282", fontSize: 12, fontWeight: 700 }} >Data Explorer (2MB)</Typography>
+                                <Typography sx={{ color: "#828282", fontSize: 11 }} >Last refresh: 11:59pm</Typography>
+                            </Box>
+                            <IconButton sx={{ mr: 1.5 }}>
+                                <img src={RefreshIcon} alt="refresh icon" style={{ height: 18, width: 15 }} />
+                            </IconButton>
+                        </Grid>
+                        <Box my={3}>
+                            <Grid container direction="column" alignItems="flex-start">
+                                {leftSidebarData?.length > 0 && leftSidebarData.map((d, i) => (
+                                    <Button key={i} sx={{ pl: 0 }}>
+                                        <Typography color="primary" sx={{ my: 1.5, fontWeight: 500, fontSize: 12 }}>{d.name}</Typography>
+                                    </Button>
+                                ))}
+                            </Grid>
+                        </Box>
+                    </Grid>
+                    <Grid item sm={10}>
+                        <Box sx={{ background: "rgba(35, 61, 145, 0.05)", pt: 4, mr: 3 }} >
+                            <Grid container justifyContent="space-between" alignItems="center" direction="column" style={{ minHeight: "69.5vh" }}>
+                                <TableContainer>
+                                    <Table
+                                        className={classes.table}
+                                        aria-label="Event Exploration table"
+                                    >
+                                        <TableHead>
+                                            <TableRow>
+                                                {labels.map((l, i) => (
+                                                    <TableCell key={i} width={i == labels.length - 1 ? "30%" : "10%"} sx={{ background: "#fff", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={l} />
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        </TableHead>
+                                    </Table>
+                                </TableContainer>
+                                <Box pb={1}>
+                                    <Grid container justifyContent="center" alignItems="center" >
+                                        {/* <img src={LeftArrowIcon} alt="left arrow" />
+                                        <span className={classes.paginationCounterLabel}>1</span>
+                                        <span className={classes.paginationCounterLabel}>2</span>
+                                        <span className={classes.paginationCounterLabel}>3</span>
+                                        <span className={classes.paginationCounterLabel}>4</span>
+                                        <span className={classes.paginationCounterLabel}>...</span>
+                                        <span className={classes.paginationCounterLabel}>10</span>
+                                        <img src={RightArrowIcon} alt="left arrow" /> */}
+                                        <Typography sx={{ color: "#718096", fontSize: 12, fontWeight: 600 }}>107 views - 5 downloads - 1 notebook - 0 topics</Typography>
+                                    </Grid>
+                                </Box>
+                            </Grid>
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>

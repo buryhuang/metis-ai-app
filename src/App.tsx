@@ -7,23 +7,29 @@ import awsconfig from './aws-exports';
 import Home from "./container/Home/Home";
 import { ThemeProvider, createTheme } from '@mui/material';
 import Detail from './container/Detail/Detail';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 Amplify.configure(awsconfig);
 
 
 const theme = createTheme({
+
   palette: {
     primary: {
-      main: "#4F4F4F"
+      main: "#233D91",
+      contrastText: "#fff"
     },
     secondary: {
-      main: "#F9F9F9",
-      light: "#F7FAFC"
+      main: "#828282",
+      light: "#bbbbbb"
     },
     text: {
       primary: "#000",
-      secondary: "#F7FAFC"
-    }
+      secondary: "#0000009f"
+    },
+
   },
+
   typography: {
     h5: {
       fontWeight: "bolder"
@@ -35,12 +41,14 @@ const theme = createTheme({
       fontSize: 9,
     },
     fontFamily: "'Roboto', sans- serif"
-  }
+  },
+
 });
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer />
       <Router>
         <Switch>
           <ProtectedRoute exact path="/" component={Home} />

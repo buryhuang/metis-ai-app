@@ -4,8 +4,8 @@ import { makeStyles } from '@mui/styles';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import DownloadIcon from '../../../../assets/trending/download.png';
-import BookmarkIcon from '../../../../assets/trending/bookmark.png';
+import DownloadIcon from '../../../../../assets/trending/download.png';
+import BookmarkIcon from '../../../../../assets/trending/bookmark.png';
 import clsx from 'clsx';
 import moment from 'moment';
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
         border: "2px solid #E2E8F0",
         width: 245,
         marginBottom: 30,
+        '&:first-child': {
+            marginLeft: 0,
+        },
         [theme.breakpoints.down('md')]: {
             width: 300,
             justify: "center",
@@ -56,7 +59,7 @@ const GridCard = (props) => {
     return (
         <Box className={clsx(classes.cardStyle)} >
             {props.data && props.data.map((d, i) => (
-                <Card elevation={0} key={d.id} className={classes.cardContainer} onClick={props.handleClick}>
+                <Card elevation={0} key={d.id} className={classes.cardContainer} onClick={() => props.handleClick(d)}>
                     <Box position="relative">
                         <Fragment>
                             <img src={d.image_url} alt={d.name} className={classes.cardImage} />

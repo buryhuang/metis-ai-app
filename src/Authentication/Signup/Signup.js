@@ -130,7 +130,7 @@ export default function Signup({ open, handleClose }) {
 
                                 </Button>
                                 <Button className={classes.actionBtn} onClick={handleSubmit} size="large" variant="contained" color="primary" autoFocus>
-                                    <Typography variant="subtitle1" color="textSecondary">Sign up</Typography>
+                                    <Typography variant="subtitle1" sx={{ color: "#fff" }}>Sign up</Typography>
                                 </Button>
                             </DialogActions>
                         }

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, CircularProgress, Grid, List as SortList } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, List as SortList, Typography } from '@mui/material';
 import Popover from '@mui/material/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import ListItem from '@mui/material/ListItem';
 import { makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router';
-import GridIcon from '../../../assets/grid.png';
-import ListIcon from '../../../assets/list.png';
-import SortIcon from '../../../assets/sort.png';
+import GridIcon from '../../../../assets/grid.png';
+import ListIcon from '../../../../assets/list.png';
+import SortIcon from '../../../../assets/sort.png';
 import ListCard from './component/ListCard';
 import GridCard from './component/GridCard';
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +85,12 @@ const List = (props) => {
         if (props.activeButton === -1) {
             setactive(1)
         }
-    }, [props.activeButton])
+    }, [props.activeButton]);
+
+
+    const handleClick = d => {
+        history.push(`/detail?id=${d.id}`)
+    }
 
 
     return (
@@ -104,8 +109,8 @@ const List = (props) => {
                             }
                         </Grid>
                     </Box>
-                    {active === 1 ?
-                        <Button >See All</Button>
+                    {props.activeButton === -1 ?
+                        <Button sx={{ fontWeight: 700, color: "#828282" }}>See All</Button>
                         :
                         <PopupState variant="popover" popupId="sort-popup-popover">
                             {(popupState) => (
@@ -148,19 +153,21 @@ const List = (props) => {
                     }
                 </Grid>
             </Box>
-            {props.data && props.data.length > 0 ?
-                active === 0 ?
-                    <ListCard
-                        data={props.data}
-                        handleClick={() => history.push("/detail")}
-                    />
+            {props.loading ?
+                <CircularProgress size={14} /> :
+                props.data && props.data.length > 0 ?
+                    active === 0 ?
+                        <ListCard
+                            data={props.data}
+                            handleClick={handleClick}
+                        />
+                        :
+                        <GridCard
+                            data={props.data}
+                            handleClick={handleClick}
+                        />
                     :
-                    <GridCard
-                        data={props.data}
-                        handleClick={() => history.push("/detail")}
-                    />
-                :
-                <CircularProgress />
+                    <Typography sx={{ p: 2, fontSize: 14, fontWeight: "bold", textAlign: "center", color: "#828282" }}>NO Data Found</Typography>
             }
         </Box >
     );

@@ -3,8 +3,8 @@ import { Box, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import DownloadIcon from '../../../../assets/trending/download.png';
-import BookmarkBlackIcon from '../../../../assets/bookmark-black.png';
+import DownloadIcon from '../../../../../assets/trending/download.png';
+import BookmarkBlackIcon from '../../../../../assets/bookmark-black.png';
 import clsx from 'clsx';
 const useStyles = makeStyles((theme) => ({
     cardStyle: {
@@ -43,7 +43,7 @@ const ListCard = (props) => {
     return (
         <Box className={clsx(classes.cardStyle)}>
             {props.data && props.data.map((d, i) => (
-                <Card key={d.id} elevation={0} key={d.id} className={classes.cardContainer} onClick={props.handleClick}>
+                <Card key={d.id} elevation={0} key={d.id} className={classes.cardContainer} onClick={() => props.handleClick(d)}>
                     <CardContent style={{ position: "relative", padding: 16 }}>
                         <Grid container justifyContent="space-between" alignItems="center">
                             <Box>

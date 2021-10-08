@@ -8,6 +8,7 @@ body {
 html, body, #root {
   height: 100%;
   overflow-x: hidden;
+  background-color: #f7fafc;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {

@@ -29,7 +29,7 @@ export const postRequest = (endpoint, body, baseUrl = true) => {
         url = process.env.REACT_APP_BASE_URL + endpoint.trim();
     }
     console.log('post url', url)
-    return axios.post(url, body, { timeout: 10000, timeoutErrorMessage: "Network request timeout, check your internet connection" });
+    return axios.post(url, body, { timeout: 30000, timeoutErrorMessage: "Network request timeout, check your internet connection" });
 }
 
 export const putRequest = (endpoint, body, baseUrl = true) => {
@@ -42,7 +42,7 @@ export const putRequest = (endpoint, body, baseUrl = true) => {
     }
     console.log('put url', url)
 
-    return axios.put(url, body, { timeout: 10000, timeoutErrorMessage: "Network request timeout, check your internet connection" });
+    return axios.put(url, body, { timeout: 30000, timeoutErrorMessage: "Network request timeout, check your internet connection" });
 }
 
 
