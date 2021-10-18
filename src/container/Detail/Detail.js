@@ -33,11 +33,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 5,
     },
     table: {
-        border: "1px solid #C2CEDB",
-        overflow: "auto"
+        borderLeft: "1px solid #C2CEDB",
+        overflow: "auto",
+        maxHeight: document.body.scrollHeight - 360
     },
     cellStyle: {
-        border: "1px solid #C2CEDB",
+        borderLeft: "1px solid #C2CEDB",
     },
     paginationCounterLabel: {
         margin: "0px 7px"
@@ -93,44 +94,190 @@ const Detail = () => {
         "Sizes",
         "Comment"
     ]
+    const dummyData = [
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        }, {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
+        {
+            schema: "test schema",
+            owner: "admin",
+            row: "43",
+            sizes: "28KB",
+            comment: "this is the dummy comment which will repeat in all rows."
+        },
 
-
-
+    ]
 
     return (
         <Fragment>
             <Header />
             <Box className={classes.innerContainer} >
-                <Grid pl={5} container alignItems="center" sx={{ mt: 3, background: "#FFF" }}>
-                    <IconButton sx={{ px: 0 }} onClick={() => history.goBack()}>
-                        <ArrowBackIcon fontSize="large" />
-                    </IconButton>
-                    <Box sx={{ fontWeight: 700, fontSize: 15, ml: 3 }}>SQL QUERY</Box>
-                </Grid>
-                <Box pl={5} py={2} mr={3} sx={{ background: "#FFF", border: "2px solid rgba(35, 61, 145, 0.2)" }} height={108}>
-                    {!data ?
-                        <Grid container alignItems="center" justifyContent="center" sx={{ width: "100wh" }}>
-                            < CircularProgress size={17} />
-                        </Grid>
-                        :
-                        <Grid mt={2.5} container alignItems="center" justifyContent="space-between">
-                            <Box>
-                                <Typography sx={{ fontWeight: 500, fontSize: 15 }}>{data.name} (13KB)</Typography>
-                                <Typography sx={{ fontSize: 12 }}>{data.description}</Typography>
-                            </Box>
-                            <Box>
-                                <Grid container alignItems="center">
-                                    <Typography sx={{ fontSize: 11 }}><Typography component="span" sx={{ fontSize: 11, textDecoration: "underline" }}> Updated 3 hours ago</Typography> |  Usability 1.0, 13KB  |  1 Task, 15 files (CSV)</Typography>
-                                    <Box ml={4}>
-                                        <Grid container>
-                                            <img src={DownloadIcon} alt="download record" style={{ marginRight: 25, height: 20, marginTop: 6 }} />
-                                            <MoreHorizIcon fontSize="large" />
-                                        </Grid>
-                                    </Box>
-                                </Grid>
-                            </Box>
-                        </Grid>
-                    }
+                <Box maxHeight={300}>
+                    <Grid pl={5} py={1} container alignItems="center" sx={{ mt: 3, background: "#FFF" }}>
+                        <ArrowBackIcon sx={{ cursor: "pointer" }} onClick={() => history.goBack()} fontSize="large" />
+                        <Box sx={{ fontWeight: 700, fontSize: 15, ml: 3 }}>SQL QUERY</Box>
+                    </Grid>
+                    <Box pl={5} py={2} mr={3} sx={{ background: "#FFF", border: "2px solid rgba(35, 61, 145, 0.2)" }} height={108}>
+                        {!data ?
+                            <Grid container alignItems="center" justifyContent="center" sx={{ width: "100wh" }}>
+                                < CircularProgress size={17} />
+                            </Grid>
+                            :
+                            <Grid mt={2.5} container alignItems="center" justifyContent="space-between">
+                                <Box>
+                                    <Typography sx={{ fontWeight: 500, fontSize: 15 }}>{data.name} (13KB)</Typography>
+                                    <Typography sx={{ fontSize: 12 }}>{data.description}</Typography>
+                                </Box>
+                                <Box>
+                                    <Grid container alignItems="center">
+                                        <Typography sx={{ fontSize: 11 }}><Typography component="span" sx={{ fontSize: 11, textDecoration: "underline" }}> Updated 3 hours ago</Typography> |  Usability 1.0, 13KB  |  1 Task, 15 files (CSV)</Typography>
+                                        <Box ml={4}>
+                                            <Grid container>
+                                                <img src={DownloadIcon} alt="download record" style={{ marginRight: 25, height: 20, marginTop: 6 }} />
+                                                <MoreHorizIcon fontSize="large" />
+                                            </Grid>
+                                        </Box>
+                                    </Grid>
+                                </Box>
+                            </Grid>
+                        }
+                    </Box>
                 </Box>
                 <Grid container>
                     <Grid item sm={2} pl={5} pt={4.5} sx={{ background: "#FFF", }}>
@@ -154,13 +301,10 @@ const Detail = () => {
                         </Box>
                     </Grid>
                     <Grid item sm={10}>
-                        <Box sx={{ background: "rgba(35, 61, 145, 0.05)", pt: 4, mr: 3 }} >
-                            <Grid container justifyContent="space-between" alignItems="center" direction="column" style={{ minHeight: "69.5vh" }}>
-                                <TableContainer>
-                                    <Table
-                                        className={classes.table}
-                                        aria-label="Event Exploration table"
-                                    >
+                        <Box sx={{ background: "rgba(35, 61, 145, 0.05)", pt: 4, mr: 3 }}>
+                            <Grid container justifyContent="space-between" alignItems="center" direction="column" style={{ height: document.body.scrollHeight - 300 }}>
+                                <TableContainer className={classes.table}>
+                                    <Table aria-label="Event Exploration table" stickyHeader>
                                         <TableHead>
                                             <TableRow>
                                                 {labels.map((l, i) => (
@@ -170,20 +314,41 @@ const Detail = () => {
                                                 ))}
                                             </TableRow>
                                         </TableHead>
+                                        <TableBody>
+                                            {dummyData.map((d, i) => (
+                                                <TableRow>
+                                                    <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={d.schema} />
+                                                    </TableCell>
+                                                    <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={d.owner} />
+                                                    </TableCell>
+                                                    <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={d.row} />
+                                                    </TableCell>
+                                                    <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={d.sizes} />
+                                                    </TableCell>
+                                                    <TableCell key={i} width={"30%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                                                        <Column title={d.comment} />
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
                                     </Table>
                                 </TableContainer>
                                 <Box pb={1}>
                                     <Grid container justifyContent="center" alignItems="center" >
-                                        {/* <img src={LeftArrowIcon} alt="left arrow" />
+                                        <img src={LeftArrowIcon} alt="left arrow" />
                                         <span className={classes.paginationCounterLabel}>1</span>
                                         <span className={classes.paginationCounterLabel}>2</span>
                                         <span className={classes.paginationCounterLabel}>3</span>
                                         <span className={classes.paginationCounterLabel}>4</span>
                                         <span className={classes.paginationCounterLabel}>...</span>
                                         <span className={classes.paginationCounterLabel}>10</span>
-                                        <img src={RightArrowIcon} alt="left arrow" /> */}
-                                        <Typography sx={{ color: "#718096", fontSize: 12, fontWeight: 600 }}>107 views - 5 downloads - 1 notebook - 0 topics</Typography>
+                                        <img src={RightArrowIcon} alt="left arrow" />
                                     </Grid>
+                                    <Typography sx={{ color: "#718096", fontSize: 12, fontWeight: 600 }}>107 views - 5 downloads - 1 notebook - 0 topics</Typography>
                                 </Box>
                             </Grid>
                         </Box>

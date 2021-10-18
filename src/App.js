@@ -2,14 +2,11 @@ import React from 'react';
 import './App.css';
 import { HashRouter as Router, Switch } from 'react-router-dom';
 import ProtectedRoute from './Router/ProtectedRoute';
-import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
 import Home from "./container/Home/Home";
 import { ThemeProvider, createTheme } from '@mui/material';
 import Detail from './container/Detail/Detail';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-Amplify.configure(awsconfig);
 
 
 const theme = createTheme({
