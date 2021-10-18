@@ -63,11 +63,8 @@ export default function Signup({ open, handleClose }) {
     });
 
     const handleSignup = (values, action) => {
-        const requestBody = {
-            name: values.name,
-            email: values.email,
-            message: values.request
-        }
+        
+        const requestBody = `email=${values.email}&name=${values.name}&message=${values.request}`
         console.log("🚀 ~ file: Signup.js ~ line 70 ~ handleSignup ~ requestBody", requestBody)
 
         postRequest('auth/register', requestBody).then(res => {
