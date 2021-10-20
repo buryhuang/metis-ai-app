@@ -19,6 +19,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+button {
+  outline: none !important;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

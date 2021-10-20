@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { HashRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import ProtectedRoute from './Router/ProtectedRoute';
 import Home from "./container/Home/Home";
 import { ThemeProvider, createTheme } from '@mui/material';

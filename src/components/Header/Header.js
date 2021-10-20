@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Grid, Button, Typography } from '@mui/material';
-import Logo from '../../assets/logo.png'
+import { Box, Grid, Button, Typography, ButtonBase } from '@mui/material';
+import Logo from '../../assets/logo.png';
+import HelpIcon from '../../assets/help-icon.png';
 import Signup from '../../Authentication/Signup/Signup';
 import { makeStyles } from '@mui/styles';
 import { useHistory } from 'react-router';
@@ -32,9 +33,16 @@ const Header = () => {
                 <Box onClick={() => history.push("/")} sx={{ cursor: "pointer" }}>
                     <img src={Logo} alt="Logo" />
                 </Box>
-                <Button onClick={handleClickOpen} variant="contained" color="primary">
-                    <Typography variant="subtitle1" sx={{ color: "#fff" }}>Signup</Typography>
-                </Button>
+                <Box>
+                    <Grid container alignItems="center">
+                        <ButtonBase sx={{ mr: 3, cursor: "pointer" }}>
+                            <img src={HelpIcon} alt="Help Icon" />
+                        </ButtonBase>
+                        <Button onClick={handleClickOpen} variant="contained" color="primary">
+                            <Typography variant="subtitle1" sx={{ color: "#fff" }}>Signup</Typography>
+                        </Button>
+                    </Grid>
+                </Box>
             </Grid>
             {open &&
                 <Signup
