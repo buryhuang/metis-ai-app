@@ -154,7 +154,7 @@ const Detail = () => {
     const getDatasetByID = () => {
         fetchRequest(`datasets/${id}`).then(res => {
             console.log('res.data', res.data)
-            setdata(res.data);
+            // setdata(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
         })
@@ -353,14 +353,14 @@ const Detail = () => {
     );
 
     const runQuery = () => {
-        const url = `dataframes/${"32b6bbc7-60f1-42fd-9db4-7b668b60c305"}/${encodeURIComponent(query)}`;
+        const url = `dataframes/query?df_id=${id}&select_sql_stmt=${query}`;
         console.log(url)
         fetchRequest(url).then(res => {
             console.log('res.data query', res.data)
-            setdata(res.data);
+            //   setdata(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
-        })
+        });
     }
 
     return (
