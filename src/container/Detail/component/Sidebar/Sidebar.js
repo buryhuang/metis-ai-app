@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -50,6 +50,7 @@ function StyledTreeItem(props) {
         ...other
     } = props;
 
+
     return (
         <StyledTreeItemRoot
             label={
@@ -82,35 +83,39 @@ StyledTreeItem.propTypes = {
     labelText: PropTypes.string.isRequired,
 };
 
-export default function GmailTreeView() {
-    return (
-        <TreeView
-            aria-label="gmail"
-            defaultExpanded={['3']}
-            defaultCollapseIcon={<ArrowDropDownIcon />}
-            defaultExpandIcon={<ArrowRightIcon />}
-            defaultEndIcon={<div style={{ width: 24 }} />}
-            sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-        >
-            <StyledTreeItem nodeId="1" labelText="Database" labelIcon={DatabaseIcon} />
-            <StyledTreeItem nodeId="2" labelText="Database" labelIcon={DatabaseIcon} />
-            <StyledTreeItem nodeId="3" labelText="Table" >
-                <StyledTreeItem
-                    nodeId="5"
-                    labelText="Table_1"
-                    labelIcon={TableIcon}
-                />
-                <StyledTreeItem
-                    nodeId="6"
-                    labelText="Table_2"
-                    labelIcon={TableIcon}
-                />
-                <StyledTreeItem
-                    nodeId="7"
-                    labelText="Table_3"
-                    labelIcon={TableIcon}
-                />
+export default function Sidebar({ data, pid }) {
+
+    const renderTree = (nodes) => {
+        return (
+            <StyledTreeItem
+                key={nodes.id}
+                nodeId={nodes.id}
+                labelText={nodes.name}
+                labelIcon={nodes.id === pid ? DatabaseIcon : TableIcon}
+            >
+                {Array.isArray(nodes.dataframes)
+                    ? nodes.dataframes.map((node) => renderTree(node))
+                    : null}
             </StyledTreeItem>
-        </TreeView>
+        );
+    };
+
+    return (
+        <Fragment>
+            {data ?
+                <TreeView
+                    aria-label="sidebar"
+                    defaultExpanded={['3']}
+                    defaultCollapseIcon={<ArrowDropDownIcon />}
+                    defaultExpandIcon={<ArrowRightIcon />}
+                    defaultEndIcon={<div style={{ width: 24 }} />}
+                    sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                >
+                    {renderTree(data)}
+                </TreeView>
+                :
+                <Box />
+            }
+        </Fragment>
     );
 }

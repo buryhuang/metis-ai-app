@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid, IconButton, Typography, Button, TextField, Tabs, Tab, ButtonBase } from '@mui/material';
+import { Box, Grid, IconButton, Typography, Button, TextField, Tabs, Tab, ButtonBase, CircularProgress } from '@mui/material';
 import Header from '../../components/Header/Header';
 import DownloadIcon from '../../assets/download-blue.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -154,7 +154,7 @@ const Detail = () => {
     const getDatasetByID = () => {
         fetchRequest(`datasets/${id}`).then(res => {
             console.log('res.data', res.data)
-            // setdata(res.data);
+            setleftSidebarData(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
         })
@@ -164,22 +164,10 @@ const Detail = () => {
         getDatasetByID();
     }, [id])
 
-    useEffect(() => {
-        getSidebarData();
-    }, []);
-
     function useQuery() {
         return new URLSearchParams(useLocation().search);
     }
 
-
-    const getSidebarData = () => {
-        fetchRequest('dataframes').then(res => {
-            setleftSidebarData(res.data);
-        }).catch(err => {
-            console.log('err.message', err.message)
-        })
-    }
 
     const labels = [
         "Schema",
@@ -353,6 +341,9 @@ const Detail = () => {
     );
 
     const runQuery = () => {
+        if (!query) {
+            return;
+        }
         const url = `dataframes/query?df_id=${id}&select_sql_stmt=${query}`;
         console.log(url)
         fetchRequest(url).then(res => {
@@ -392,7 +383,14 @@ const Detail = () => {
                             </Box>
                         </Box>
                         <Box my={3} pl={1}>
-                            <Sidebar data={leftSidebarData} />
+                            {
+                                !leftSidebarData ?
+                                    <Grid container justifyContent="center" sx={{ mt: 1.5 }}>
+                                        <CircularProgress size={14} color="primary" />
+                                    </Grid>
+                                    :
+                                    <Sidebar pid={id} data={leftSidebarData} />
+                            }
                         </Box>
                     </Grid>
                     <Grid item sm={10}>
