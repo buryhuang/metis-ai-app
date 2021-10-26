@@ -21,14 +21,26 @@ const useStyles = makeStyles((theme) => ({
 const FrameTable = ({ labels, data }) => {
     const classes = useStyles();
 
+    const addTableRow = (result, index) => {
+        const record = Object.keys(result).map((item) => {
+            return (
+                <TableCell key={item} sx={{ background: index % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
+                    <Column title={data[index][item]} />
+                </TableCell>
+            );
+        });
+        return record;
+
+    }
+
     return (
         <TableContainer className={classes.table}>
             <Table aria-label="Event Exploration table" stickyHeader>
                 <TableHead>
                     <TableRow>
                         {labels && labels.map((l, i) => (
-                            <TableCell key={i} width={i == labels.length - 1 ? "30%" : "10%"} sx={{ background: "#fff", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={l} />
+                            <TableCell key={i} sx={{ background: "#fff", py: 1 }} align="center" className={classes.cellStyle}>
+                                <Column isHeader title={l} />
                             </TableCell>
                         ))}
                     </TableRow>
@@ -36,21 +48,7 @@ const FrameTable = ({ labels, data }) => {
                 <TableBody>
                     {data && data.map((d, i) => (
                         <TableRow>
-                            <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={d.schema} />
-                            </TableCell>
-                            <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={d.owner} />
-                            </TableCell>
-                            <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={d.row} />
-                            </TableCell>
-                            <TableCell key={i} width={"10%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={d.sizes} />
-                            </TableCell>
-                            <TableCell key={i} width={"30%"} sx={{ background: i % 2 !== 0 ? "#fff" : "rgba(35, 61, 145, 0.05)", py: 1 }} align="center" className={classes.cellStyle}>
-                                <Column title={d.comment} />
-                            </TableCell>
+                            {addTableRow(d, i)}
                         </TableRow>
                     ))}
                 </TableBody>

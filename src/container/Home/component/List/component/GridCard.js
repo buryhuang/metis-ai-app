@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
         border: "2px solid #E2E8F0",
         width: 245,
         marginBottom: 30,
+        cursor: "pointer",
         '&:first-child': {
             marginLeft: 0,
         },

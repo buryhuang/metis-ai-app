@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     cardContainer: {
         border: "2px solid #E2E8F0",
         width: "100%",
-        marginBottom: 30
+        marginBottom: 30,
+        cursor: "pointer"
     },
     cardImage: {
         width: 400,

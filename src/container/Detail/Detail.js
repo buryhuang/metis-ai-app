@@ -137,7 +137,6 @@ const styles = {
     }
 }
 
-
 const Detail = () => {
     const classes = useStyles();
     const history = useHistory();
@@ -146,14 +145,17 @@ const Detail = () => {
     const [query, setQuery] = useState('');
     const [leftSidebarData, setleftSidebarData] = useState(null);
     const id = useQuery().get('id');
+    const [queryLoading, setqueryLoading] = useState(false);
     const [value, setValue] = React.useState(0);
+    const [tableKeys, settableKeys] = useState(null);
+    const [tableRows, settableRows] = useState(null);
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const getDatasetByID = () => {
         fetchRequest(`datasets/${id}`).then(res => {
-            console.log('res.data', res.data)
             setleftSidebarData(res.data);
         }).catch(err => {
             console.log('err.message', err.message)
@@ -169,163 +171,6 @@ const Detail = () => {
     }
 
 
-    const labels = [
-        "Schema",
-        "Owner",
-        "Row",
-        "Sizes",
-        "Comment"
-    ]
-    const dummyData = [
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        }, {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-        {
-            schema: "test schema",
-            owner: "admin",
-            row: "43",
-            sizes: "28KB",
-            comment: "this is the dummy comment which will repeat in all rows."
-        },
-
-    ];
-
     const highlight = code => (
         <Highlight {...defaultProps} theme={theme} code={code} language="sql">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -340,17 +185,21 @@ const Detail = () => {
         </Highlight>
     );
 
-    const runQuery = () => {
-        if (!query) {
-            return;
-        }
-        const url = `dataframes/query?df_id=${id}&select_sql_stmt=${query}`;
+    const runQuery = (ds_id) => {
+        if (!ds_id || !query || queryLoading) return false;
+        setqueryLoading(true);
+        const url = `dataframes/query?df_id=${ds_id}&select_sql_stmt=${query}`;
         console.log(url)
         fetchRequest(url).then(res => {
-            console.log('res.data query', res.data)
-            //   setdata(res.data);
+            const result = JSON.parse(res.data);
+            if (result.length > 0) {
+                settableKeys(Object.keys(result[0]));
+                settableRows(result);
+            }
+            setqueryLoading(false)
         }).catch(err => {
-            console.log('err.message', err.message)
+            console.log(`🚀 ~ file: Detail.js ~ line 204 ~ fetchRequest ~ err`, err);
+            setqueryLoading(false)
         });
     }
 
@@ -389,7 +238,7 @@ const Detail = () => {
                                         <CircularProgress size={14} color="primary" />
                                     </Grid>
                                     :
-                                    <Sidebar pid={id} data={leftSidebarData} />
+                                    <Sidebar runQuery={runQuery} pid={id} data={leftSidebarData} />
                             }
                         </Box>
                     </Grid>
@@ -398,7 +247,7 @@ const Detail = () => {
                             <Box>
                                 <Box sx={{ background: "#fff", pt: 3.5, pb: 2.9, px: 3, borderLeft: "1px solid #C2CEDB" }}>
                                     <Grid container justifyContent="space-between" alignItems="center">
-                                        <Button onClick={runQuery} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
+                                        <Button variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
                                             <Typography sx={{ color: "#fff" }}>run</Typography>
                                         </Button>
                                         <ButtonBase sx={{ p: 0.5, borderRadius: 0.5 }}>
@@ -453,14 +302,21 @@ const Detail = () => {
                             </Box>
                             <TabPanel value={value} index={0}>
                                 <Grid container justifyContent="space-between" alignItems="center" direction="column">
-                                    <FrameTable data={dummyData} labels={labels} />
+                                    {tableKeys ?
+                                        <FrameTable data={tableRows} labels={tableKeys} />
+                                        :
+                                        queryLoading ?
+                                            <CircularProgress sx={{ my: 2 }} size={14} color="primary" />
+                                            :
+
+                                            <Typography variant="subtitle1" component="h4" sx={{ py: 1 }}>No Record</Typography>
+                                    }
                                     <Box pb={1} pt={1.5} border="1px solid #C2CEDB" width="100%">
-                                        <Pagination />
+                                        <Pagination hasData={tableKeys ? true : false} queryLoading={queryLoading} />
                                         <Footer />
                                     </Box>
                                 </Grid>
                             </TabPanel>
-
                         </Box>
                     </Grid>
                 </Grid>

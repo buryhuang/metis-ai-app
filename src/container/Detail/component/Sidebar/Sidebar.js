@@ -83,7 +83,7 @@ StyledTreeItem.propTypes = {
     labelText: PropTypes.string.isRequired,
 };
 
-export default function Sidebar({ data, pid }) {
+export default function Sidebar({ data, pid, runQuery }) {
 
     const renderTree = (nodes) => {
         return (
@@ -91,6 +91,7 @@ export default function Sidebar({ data, pid }) {
                 key={nodes.id}
                 nodeId={nodes.id}
                 labelText={nodes.name}
+                onClick={() => nodes.id !== pid && runQuery(nodes.id)}
                 labelIcon={nodes.id === pid ? DatabaseIcon : TableIcon}
             >
                 {Array.isArray(nodes.dataframes)
