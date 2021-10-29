@@ -16,6 +16,7 @@ import FrameTable from './component/Table/FrameTable';
 import Pagination from './component/Table/Pagination';
 import Footer from './component/Footer';
 import Sidebar from './component/Sidebar/Sidebar';
+import { toast } from '../../Utils/Toast';
 
 
 
@@ -143,13 +144,14 @@ const Detail = () => {
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('');
     const [query, setQuery] = useState('');
+    const [dsID, setdsID] = useState(null);
     const [leftSidebarData, setleftSidebarData] = useState(null);
-    const id = useQuery().get('id');
     const [queryLoading, setqueryLoading] = useState(false);
     const [value, setValue] = React.useState(0);
     const [tableKeys, settableKeys] = useState(null);
     const [tableRows, settableRows] = useState(null);
 
+    const id = useQuery().get('id');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -185,21 +187,28 @@ const Detail = () => {
         </Highlight>
     );
 
-    const runQuery = (ds_id) => {
-        if (!ds_id || !query || queryLoading) return false;
+    const runQuery = () => {
+        let url = `dataframes/query?df_id=${dsID}&select_sql_stmt=${query}`
+        if (!dsID || !query) return false;
         setqueryLoading(true);
-        const url = `dataframes/query?df_id=${ds_id}&select_sql_stmt=${query}`;
-        console.log(url)
+        console.log(url);
         fetchRequest(url).then(res => {
+            console.log(`🚀 ~ file: Detail.js ~ line 204 ~ fetchRequest ~ res.data`, res.data);
+            setdsID(dsID);
             const result = JSON.parse(res.data);
             if (result.length > 0) {
                 settableKeys(Object.keys(result[0]));
                 settableRows(result);
+            } else {
+                settableKeys([]);
+                settableRows([]);
+                toast("No record found regarding query.")
             }
             setqueryLoading(false)
         }).catch(err => {
             console.log(`🚀 ~ file: Detail.js ~ line 204 ~ fetchRequest ~ err`, err);
-            setqueryLoading(false)
+            setqueryLoading(false);
+            toast("There is an error, Please check your query", "error")
         });
     }
 
@@ -238,7 +247,7 @@ const Detail = () => {
                                         <CircularProgress size={14} color="primary" />
                                     </Grid>
                                     :
-                                    <Sidebar runQuery={runQuery} pid={id} data={leftSidebarData} />
+                                    <Sidebar onClick={(id) => setdsID(id)} pid={id} data={leftSidebarData} />
                             }
                         </Box>
                     </Grid>
@@ -247,10 +256,10 @@ const Detail = () => {
                             <Box>
                                 <Box sx={{ background: "#fff", pt: 3.5, pb: 2.9, px: 3, borderLeft: "1px solid #C2CEDB" }}>
                                     <Grid container justifyContent="space-between" alignItems="center">
-                                        <Button variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
+                                        <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
                                             <Typography sx={{ color: "#fff" }}>run</Typography>
                                         </Button>
-                                        <ButtonBase sx={{ p: 0.5, borderRadius: 0.5 }}>
+                                        <Box sx={{ p: 0.5, borderRadius: 0.5 }}>
                                             <Grid container justifyContent="space-between" alignItems="center">
                                                 <Box sx={{ mr: 1.5 }}>
                                                     <Typography sx={{ color: "#000", fontSize: 12 }} >Last refresh: 11:59pm</Typography>
@@ -259,7 +268,7 @@ const Detail = () => {
                                                     <img src={RefreshIcon} alt="refresh icon" style={{ height: 18, width: 15 }} />
                                                 </IconButton>
                                             </Grid>
-                                        </ButtonBase>
+                                        </Box>
                                     </Grid>
                                 </Box>
                                 <Box>
@@ -312,7 +321,7 @@ const Detail = () => {
                                             <Typography variant="subtitle1" component="h4" sx={{ py: 1 }}>No Record</Typography>
                                     }
                                     <Box pb={1} pt={1.5} border="1px solid #C2CEDB" width="100%">
-                                        <Pagination hasData={tableKeys ? true : false} queryLoading={queryLoading} />
+                                        {tableRows && tableRows.length > 10 && <Pagination hasData={tableKeys ? true : false} queryLoading={queryLoading} />}
                                         <Footer />
                                     </Box>
                                 </Grid>

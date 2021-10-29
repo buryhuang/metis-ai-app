@@ -58,7 +58,7 @@ function StyledTreeItem(props) {
                     <Box sx={{ mr: 1 }}>
                         <img src={LabelIcon} height="15" />
                     </Box>
-                    <Typography sx={{ fontSize: 12 }} sx={{ fontWeight: 400, flexGrow: 1 }}>
+                    <Typography sx={{ fontSize: 12 }} sx={{ textTransform: "capitalize", fontWeight: 400, flexGrow: 1 }}>
                         {labelText}
                     </Typography>
                     <Typography variant="caption" color="inherit">
@@ -83,7 +83,7 @@ StyledTreeItem.propTypes = {
     labelText: PropTypes.string.isRequired,
 };
 
-export default function Sidebar({ data, pid, runQuery }) {
+export default function Sidebar({ data, pid, onClick }) {
 
     const renderTree = (nodes) => {
         return (
@@ -91,7 +91,7 @@ export default function Sidebar({ data, pid, runQuery }) {
                 key={nodes.id}
                 nodeId={nodes.id}
                 labelText={nodes.name}
-                onClick={() => nodes.id !== pid && runQuery(nodes.id)}
+                onClick={() => nodes.id !== pid && onClick(nodes.id)}
                 labelIcon={nodes.id === pid ? DatabaseIcon : TableIcon}
             >
                 {Array.isArray(nodes.dataframes)
