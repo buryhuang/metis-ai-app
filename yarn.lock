@@ -11532,6 +11532,11 @@ toidentifier@1.0.0:
   resolved "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.0.tgz"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
+tokenize@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/tokenize/-/tokenize-0.0.3.tgz#2a8cb4befe3d7761f5b29e532756eee3bc1a33fe"
+  integrity sha1-Koy0vv49d2H1sp5TJ1bu47waM/4=
+
 toposort@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
