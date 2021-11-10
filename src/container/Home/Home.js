@@ -170,8 +170,8 @@ const Home = () => {
                     <section>
                         <DataList
                             loading={loading}
-                            icon={TrendingIcon}
-                            title="Trending Datasets"
+                                icon={TrendingIcon}
+                                title="Trending Datasets"
                             data={data?.items}
                             activeButton={activeButton}
                         />
@@ -189,23 +189,23 @@ const Home = () => {
                     </section>
                 }
             </Box>
-            {
-                activeButton === -1 &&
-                <Fragment>
-                    <Box width="100%" borderBottom="2px solid #E2E8F0" />
-                    <Box className={classes.innerContainer}>
-                        <section>
-                            <DataList
-                                loading={loading}
-                                icon={StarIcon}
-                                title="Popular Datasets"
-                                data={data?.items}
-                                activeButton={activeButton}
-                            />
-                        </section>
-                    </Box>
-                </Fragment>
-            }
+            {/*{*/}
+            {/*    activeButton === -1 &&*/}
+            {/*    <Fragment>*/}
+            {/*        <Box width="100%" borderBottom="2px solid #E2E8F0" />*/}
+            {/*        <Box className={classes.innerContainer}>*/}
+            {/*            <section>*/}
+            {/*                <DataList*/}
+            {/*                    loading={loading}*/}
+            {/*                    icon={StarIcon}*/}
+            {/*                    title="Popular Datasets"*/}
+            {/*                    data={data?.items}*/}
+            {/*                    activeButton={activeButton}*/}
+            {/*                />*/}
+            {/*            </section>*/}
+            {/*        </Box>*/}
+            {/*    </Fragment>*/}
+            {/*}*/}
         </Fragment >
     );
 }
