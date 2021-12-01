@@ -143,7 +143,7 @@ const Detail = () => {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('');
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('select * from database_name');
     const [dsID, setdsID] = useState(null);
     const [leftSidebarData, setleftSidebarData] = useState(null);
     const [queryLoading, setqueryLoading] = useState(false);
