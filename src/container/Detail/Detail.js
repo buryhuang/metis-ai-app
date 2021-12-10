@@ -143,7 +143,7 @@ const Detail = () => {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('');
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState('select * from database_name');
     const [dsID, setdsID] = useState(null);
     const [leftSidebarData, setleftSidebarData] = useState(null);
     const [queryLoading, setqueryLoading] = useState(false);
@@ -187,6 +187,13 @@ const Detail = () => {
         </Highlight>
     );
 
+    const ToastMsg = () => (
+        <div>
+          There is an error for query !<br/>
+          <a style={{color:'blue'}}onClick={()=>window.open('https://www.mysqltutorial.org/mysql-select-statement-query-data.aspx','_blank')}>More Information</a>
+        </div>
+      )
+    
     const runQuery = () => {
         let url = `dataframes/query?df_id=${dsID}&select_sql_stmt=${query}`
         if (!dsID || !query) return false;
@@ -208,9 +215,10 @@ const Detail = () => {
         }).catch(err => {
             console.log(`🚀 ~ file: Detail.js ~ line 204 ~ fetchRequest ~ err`, err);
             setqueryLoading(false);
-            toast("There is an error, Please check your query", "error")
+            toast(ToastMsg, "error")
         });
     }
+
 
     return (
         <Fragment>
@@ -256,9 +264,14 @@ const Detail = () => {
                             <Box>
                                 <Box sx={{ background: "#fff", pt: 3.5, pb: 2.9, px: 3, borderLeft: "1px solid #C2CEDB" }}>
                                     <Grid container justifyContent="space-between" alignItems="center">
-                                        <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
-                                            <Typography sx={{ color: "#fff" }}>run</Typography>
-                                        </Button>
+                                        { dsID ? 
+                                            <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 6, py: 0.85, background: "#4680C2" }}>
+                                                <Typography sx={{ color: "#fff" }}>run</Typography>
+                                            </Button> : 
+                                            <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
+                                                <Typography sx={{ color: "#fff" }}>select</Typography>
+                                            </Button>
+                                        }
                                         <Box sx={{ p: 0.5, borderRadius: 0.5 }}>
                                             <Grid container justifyContent="space-between" alignItems="center">
                                                 <Box sx={{ mr: 1.5 }}>

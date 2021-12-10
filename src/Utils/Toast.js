@@ -1,6 +1,6 @@
 import { toast as reactToast } from 'react-toastify';
-export const toast = (message, type = "success", duration = 3000) => {
-    const msg = message ? message.toUpperCase() : message
+export const toast = (message, type = "success", duration = 6000) => {
+    const msg = message ? message: message
     switch (type) {
         case "success":
             reactToast.success(msg, {
@@ -29,7 +29,7 @@ export const toast = (message, type = "success", duration = 3000) => {
                 position: "top-right",
                 autoClose: duration,
                 hideProgressBar: false,
-                closeOnClick: true,
+                closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
