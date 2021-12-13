@@ -259,22 +259,12 @@ const Detail = () => {
                                         <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
                                             <Typography sx={{ color: "#fff" }}>run</Typography>
                                         </Button>
-                                        <Box sx={{ p: 0.5, borderRadius: 0.5 }}>
-                                            <Grid container justifyContent="space-between" alignItems="center">
-                                                <Box sx={{ mr: 1.5 }}>
-                                                    <Typography sx={{ color: "#000", fontSize: 12 }} >Last refresh: 11:59pm</Typography>
-                                                </Box>
-                                                <IconButton>
-                                                    <img src={RefreshIcon} alt="refresh icon" style={{ height: 18, width: 15 }} />
-                                                </IconButton>
-                                            </Grid>
-                                        </Box>
                                     </Grid>
                                 </Box>
                                 <Box>
                                     <Editor
                                         value={query}
-                                        onValueChange={code => setQuery(code)}
+                                        onValueChange={code => setQuery(code.toLowerCase())}
                                         highlight={highlight}
                                         style={styles.root}
                                         textareaClassName={classes.textareaStyle}
