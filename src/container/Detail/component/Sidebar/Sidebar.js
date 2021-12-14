@@ -91,7 +91,7 @@ export default function Sidebar({ data, pid, onClick }) {
                 key={nodes.id}
                 nodeId={nodes.id}
                 labelText={nodes.name}
-                onClick={() => nodes.id !== pid && onClick(nodes.id)}
+                onClick={() => nodes.id !== pid && onClick(nodes.id,nodes.name)}
                 labelIcon={nodes.id === pid ? DatabaseIcon : TableIcon}
             >
                 {Array.isArray(nodes.dataframes)

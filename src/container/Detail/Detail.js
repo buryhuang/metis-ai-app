@@ -143,7 +143,7 @@ const Detail = () => {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('');
-    const [query, setQuery] = useState('select * from database_name');
+    const [query, setQuery] = useState('select * from ');
     const [dsID, setdsID] = useState(null);
     const [leftSidebarData, setleftSidebarData] = useState(null);
     const [queryLoading, setqueryLoading] = useState(false);
@@ -255,7 +255,10 @@ const Detail = () => {
                                         <CircularProgress size={14} color="primary" />
                                     </Grid>
                                     :
-                                    <Sidebar onClick={(id) => setdsID(id)} pid={id} data={leftSidebarData} />
+                                    <Sidebar onClick={(id,name) => {
+                                        setdsID(id);
+                                        setQuery(query + name);
+                                    }} pid={id} data={leftSidebarData} />
                             }
                         </Box>
                     </Grid>
@@ -272,22 +275,12 @@ const Detail = () => {
                                                 <Typography sx={{ color: "#fff" }}>select</Typography>
                                             </Button>
                                         }
-                                        <Box sx={{ p: 0.5, borderRadius: 0.5 }}>
-                                            <Grid container justifyContent="space-between" alignItems="center">
-                                                <Box sx={{ mr: 1.5 }}>
-                                                    <Typography sx={{ color: "#000", fontSize: 12 }} >Last refresh: 11:59pm</Typography>
-                                                </Box>
-                                                <IconButton>
-                                                    <img src={RefreshIcon} alt="refresh icon" style={{ height: 18, width: 15 }} />
-                                                </IconButton>
-                                            </Grid>
-                                        </Box>
                                     </Grid>
                                 </Box>
                                 <Box>
                                     <Editor
                                         value={query}
-                                        onValueChange={code => setQuery(code)}
+                                        onValueChange={code => setQuery(code.toLowerCase())}
                                         highlight={highlight}
                                         style={styles.root}
                                         textareaClassName={classes.textareaStyle}
