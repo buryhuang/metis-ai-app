@@ -280,7 +280,7 @@ const Detail = () => {
                                 <Box>
                                     <Editor
                                         value={query}
-                                        onValueChange={code => setQuery(code.toLowerCase())}
+                                        onValueChange={code => setQuery(code)}
                                         highlight={highlight}
                                         style={styles.root}
                                         textareaClassName={classes.textareaStyle}
