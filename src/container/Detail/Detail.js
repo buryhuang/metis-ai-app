@@ -255,7 +255,7 @@ const Detail = () => {
                                         <CircularProgress size={14} color="primary" />
                                     </Grid>
                                     :
-                                    <Sidebar onClick={(id,name) => {
+                                    <Sidebar onDoubleClick={(id,name) => {
                                         setdsID(id);
                                         setQuery(query + name);
                                     }} pid={id} data={leftSidebarData} />
