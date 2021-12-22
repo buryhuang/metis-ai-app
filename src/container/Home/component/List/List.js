@@ -109,7 +109,9 @@ const List = (props) => {
                             }
                         </Grid>
                     </Box>
-                    {props.activeButton === -1 ?
+                    
+                    {/* ALL BUTTON
+                    props.activeButton === -1 ?
                         <Button sx={{ fontWeight: 700, color: "#828282" }}>See All</Button>
                         :
                         <PopupState variant="popover" popupId="sort-popup-popover">
@@ -150,7 +152,7 @@ const List = (props) => {
                                 </div>
                             )}
                         </PopupState>
-                    }
+                        */}
                 </Grid>
             </Box>
             {props.loading ?

@@ -35,9 +35,13 @@ const Header = () => {
                 </Box>
                 <Box>
                     <Grid container alignItems="center">
-                        <ButtonBase sx={{ mr: 3, cursor: "pointer" }}>
-                            <img src={HelpIcon} alt="Help Icon" />
-                        </ButtonBase>
+                        {/* HELP BUTTON
+                            <ButtonBase sx={{ mr: 3, cursor: "pointer" }}>
+                                <img src={HelpIcon} alt="Help Icon" />
+                            </ButtonBase>
+                        */}
+
+                        
                         <Button onClick={handleClickOpen} variant="contained" color="primary">
                             <Typography variant="subtitle1" sx={{ color: "#fff" }}>Signup</Typography>
                         </Button>
