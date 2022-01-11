@@ -150,7 +150,7 @@ const Detail = () => {
     const [value, setValue] = React.useState(0);
     const [tableKeys, settableKeys] = useState(null);
     const [tableRows, settableRows] = useState(null);
-
+    const [dataInCSV,setDataInCSV] = useState(null);
     const id = useQuery().get('id');
 
     const handleChange = (event, newValue) => {
@@ -202,6 +202,7 @@ const Detail = () => {
         fetchRequest(url).then(res => {
             console.log(`🚀 ~ file: Detail.js ~ line 204 ~ fetchRequest ~ res.data`, res.data);
             setdsID(dsID);
+            setDataInCSV(res.data);
             const result = JSON.parse(res.data);
             if (result.length > 0) {
                 settableKeys(Object.keys(result[0]));
@@ -311,7 +312,9 @@ const Detail = () => {
                                                 size="small"
                                             />
                                         </Box>
-                                        <img src={DownloadIcon} alt="download record" style={{ marginRight: 25, height: 20 }} />
+                                        <a href={`data:text/csv;charset=utf-8,${escape(dataInCSV)}`} download="Records.csv">
+                                            <img src={DownloadIcon} alt="download record" style={{ marginRight: 25, height: 20 }} />
+                                        </a>
                                     </Grid>
                                 </Box>
                             </Box>
