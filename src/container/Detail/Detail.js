@@ -16,6 +16,7 @@ import FrameTable from './component/Table/FrameTable';
 import Pagination from './component/Table/Pagination';
 import Footer from './component/Footer';
 import Sidebar from './component/Sidebar/Sidebar';
+import QueryEditor from './component/Editor/QueryEditor';
 import { toast } from '../../Utils/Toast';
 
 
@@ -152,7 +153,7 @@ const Detail = () => {
     const [tableRows, settableRows] = useState(null);
 
     const id = useQuery().get('id');
-
+    
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -218,7 +219,14 @@ const Detail = () => {
             toast(ToastMsg, "error")
         });
     }
+    
+    const getInfoFromEditor = (childData) =>{
+        setQuery(childData);
+    }
 
+    const addQuery = (info) => {
+        return (setQuery(info))
+    }
 
     return (
         <Fragment>
@@ -268,7 +276,7 @@ const Detail = () => {
                                 <Box sx={{ background: "#fff", pt: 3.5, pb: 2.9, px: 3, borderLeft: "1px solid #C2CEDB" }}>
                                     <Grid container justifyContent="space-between" alignItems="center">
                                         { dsID ? 
-                                            <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 6, py: 0.85, background: "#4680C2" }}>
+                                            <Button disabled={query === '' || !dsID} onClick={() => {runQuery()}} variant="contained" sx={{ px: 6, py: 0.85, background: "#4680C2" }}>
                                                 <Typography sx={{ color: "#fff" }}>run</Typography>
                                             </Button> : 
                                             <Button disabled={query === '' || !dsID} onClick={() => runQuery()} variant="contained" sx={{ px: 4.5, py: 0.85, background: "#4680C2" }}>
@@ -278,13 +286,7 @@ const Detail = () => {
                                     </Grid>
                                 </Box>
                                 <Box>
-                                    <Editor
-                                        value={query}
-                                        onValueChange={code => setQuery(code)}
-                                        highlight={highlight}
-                                        style={styles.root}
-                                        textareaClassName={classes.textareaStyle}
-                                    />
+                                    <QueryEditor  parentCallback={getInfoFromEditor} parentQuery={query}/>
                                 </Box>
                                 <Box sx={{ background: "#fff", border: "1px solid rgba(35, 61, 145, 0.2)" }}>
                                     <DetailTabs
